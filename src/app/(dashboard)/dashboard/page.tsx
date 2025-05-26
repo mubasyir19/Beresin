@@ -56,19 +56,19 @@ export default function MainPageDashboard() {
               <p className="text-sm text-red-500">Belum Mulai</p>
             </div>
             <div className="flex items-center gap-x-2">
-              <div className="size-3 rounded-full bg-yellow-500"></div>
+              <div className="size-3 rounded-full bg-yellow-400"></div>
               <p className="text-sm text-neutral-100">4</p>
-              <p className="text-sm text-yellow-500">Dikerjakan</p>
+              <p className="text-sm text-yellow-400">Dikerjakan</p>
             </div>
             <div className="flex items-center gap-x-2">
-              <div className="size-3 rounded-full bg-cyan-500"></div>
+              <div className="size-3 rounded-full bg-cyan-400"></div>
               <p className="text-sm text-neutral-100">3</p>
-              <p className="text-sm text-cyan-500">Review</p>
+              <p className="text-sm text-cyan-400">Review</p>
             </div>
             <div className="flex items-center gap-x-2">
-              <div className="size-3 rounded-full bg-emerald-500"></div>
+              <div className="size-3 rounded-full bg-emerald-400"></div>
               <p className="text-sm text-neutral-100">2</p>
-              <p className="text-sm text-emerald-500">Selesai</p>
+              <p className="text-sm text-emerald-400">Selesai</p>
             </div>
           </div>
         </div>
