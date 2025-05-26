@@ -25,9 +25,52 @@ export default function MainPageDashboard() {
         <div className="rounded-lg border border-border bg-secondary-1 px-5 py-4">
           <p className="flex items-center gap-x-2 text-xs font-semibold text-neutral-400">
             <QueueListIcon className="size-4" />
-            <span>Task</span>
+            <span>Tugas</span>
           </p>
           <h2 className="mt-4 text-2xl font-semibold text-neutral-100">50</h2>
+        </div>
+        <div className="rounded-lg border border-border bg-secondary-1 px-5 py-4">
+          <p className="flex items-center gap-x-2 text-xs font-semibold text-neutral-400">
+            <QueueListIcon className="size-4" />
+            <span>Projek Aktif</span>
+          </p>
+          <h2 className="mt-4 text-2xl font-semibold text-neutral-100">50</h2>
+        </div>
+        <div className="rounded-lg border border-border bg-secondary-1 px-5 py-4">
+          <p className="flex items-center gap-x-2 text-xs font-semibold text-neutral-400">
+            <QueueListIcon className="size-4" />
+            <span>Projek Selesai</span>
+          </p>
+          <h2 className="mt-4 text-2xl font-semibold text-neutral-100">50</h2>
+        </div>
+      </div>
+      <div className="mt-5 grid grid-cols-3">
+        <div className="rounded-lg border border-neutral-500 bg-secondary-1 p-4">
+          <h3 className="text-xl font-semibold text-neutral-100">
+            Ringkasan Tugas
+          </h3>
+          <div className="mt-3 flex flex-col gap-2">
+            <div className="flex items-center gap-x-2">
+              <div className="size-3 rounded-full bg-red-500"></div>
+              <p className="text-sm text-neutral-100">9</p>
+              <p className="text-sm text-red-500">Belum Mulai</p>
+            </div>
+            <div className="flex items-center gap-x-2">
+              <div className="size-3 rounded-full bg-yellow-500"></div>
+              <p className="text-sm text-neutral-100">4</p>
+              <p className="text-sm text-yellow-500">Dikerjakan</p>
+            </div>
+            <div className="flex items-center gap-x-2">
+              <div className="size-3 rounded-full bg-cyan-500"></div>
+              <p className="text-sm text-neutral-100">3</p>
+              <p className="text-sm text-cyan-500">Review</p>
+            </div>
+            <div className="flex items-center gap-x-2">
+              <div className="size-3 rounded-full bg-emerald-500"></div>
+              <p className="text-sm text-neutral-100">2</p>
+              <p className="text-sm text-emerald-500">Selesai</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
