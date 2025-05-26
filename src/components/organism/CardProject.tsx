@@ -1,5 +1,5 @@
 import React from "react";
-import { getInitialsFromTwoWords } from "../initialName";
+import { getInitialsFromTwoWords } from "../../helpers/initialName";
 import Badge from "../atoms/Badge";
 import ProgressBar from "../molecules/ProgressBar";
 import AvatarGroup from "../molecules/AvatarGroup";
@@ -29,9 +29,9 @@ export default function CardProject({
   members,
 }: CardProjectProps) {
   return (
-    <div className="bg-secondary-1 border-border rounded-lg border px-5 py-4">
+    <div className="rounded-lg border border-border bg-secondary-1 px-5 py-4">
       <div className="flex items-center justify-between">
-        <div className="bg-secondary-2 flex size-8 items-center justify-center rounded-full">
+        <div className="flex size-8 items-center justify-center rounded-full bg-secondary-2">
           <p className="text-sm text-white">{getInitialsFromTwoWords(name)}</p>
         </div>
         <Badge status={priority} />
@@ -45,7 +45,7 @@ export default function CardProject({
       </p>
       <p className="mt-2 text-xs text-neutral-100">
         Tasks Done :{" "}
-        <span className="text-secondary-3 font-bold">{taskProgress}</span> /{" "}
+        <span className="font-bold text-secondary-3">{taskProgress}</span> /{" "}
         {totalTasks}
       </p>
       <div className="mt-4">
@@ -53,7 +53,7 @@ export default function CardProject({
       </div>
       <div className="mt-4 flex items-center justify-between">
         <AvatarGroup members={members} maxVisible={3} />
-        <Link href={`#`} className="text-primary text-xs underline">
+        <Link href={`#`} className="text-xs text-primary underline">
           details
         </Link>
       </div>

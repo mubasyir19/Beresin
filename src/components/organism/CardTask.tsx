@@ -1,6 +1,6 @@
 // import { Status, TaskPriority } from "@/types";
 import React from "react";
-import { getInitialsFromTwoWords } from "../initialName";
+import { getInitialsFromTwoWords } from "../../helpers/initialName";
 import Badge from "../atoms/Badge";
 import StatusBadge from "../atoms/StatusBadge";
 
@@ -20,9 +20,9 @@ export default function CardTask(
   },
 ) {
   return (
-    <div className="bg-secondary-1 border-border rounded-lg border px-5 py-4">
+    <div className="rounded-lg border border-border bg-secondary-1 px-5 py-4">
       <div className="flex items-center justify-between">
-        <div className="bg-secondary-2 flex size-8 items-center justify-center rounded-full">
+        <div className="flex size-8 items-center justify-center rounded-full bg-secondary-2">
           <p className="text-sm text-white">
             {getInitialsFromTwoWords("UI Design")}
           </p>

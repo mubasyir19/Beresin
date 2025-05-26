@@ -1,5 +1,5 @@
 import React from "react";
-import { getInitialsFromTwoWords } from "../initialName";
+import { getInitialsFromTwoWords } from "../../helpers/initialName";
 import { AvatarGroupProps } from "@/types";
 
 export default function AvatarGroup({ members, maxVisible }: AvatarGroupProps) {
