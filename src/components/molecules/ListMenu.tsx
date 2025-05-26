@@ -7,7 +7,6 @@ import React from "react";
 
 export default function ListMenu({ item }: SidebarMenuProps) {
   const pathname = usePathname();
-  console.log("ini path ", pathname);
   const isActive = pathname == item.href;
 
   const IconComponent = item.icon;
@@ -15,15 +14,15 @@ export default function ListMenu({ item }: SidebarMenuProps) {
   return (
     <Link
       href={`${item.href}`}
-      className={`group flex w-full cursor-pointer items-center gap-x-4 rounded-r-full px-4 py-2 transition-all duration-100 ${isActive ? "bg-indigo-200" : "hover:bg-indigo-200"}`}
+      className={`group flex w-full cursor-pointer items-center gap-x-4 rounded-r-full border-l-4 px-4 py-2 transition-all duration-100 ${isActive ? "border-primary" : "border-transparent"}`}
     >
       {IconComponent && (
         <IconComponent
-          className={`size-6 ${isActive ? "text-indigo-600" : "text-gray-500 group-hover:text-indigo-600"}`}
+          className={`size-6 ${isActive ? "text-primary" : "text-gray-500 group-hover:text-primary"}`}
         />
       )}
       <p
-        className={`font-semibold ${isActive ? "text-indigo-600" : "text-gray-500 group-hover:text-indigo-600"}`}
+        className={`font-medium ${isActive ? "text-primary" : "text-gray-500 group-hover:text-primary"}`}
       >
         {item.text}
       </p>
