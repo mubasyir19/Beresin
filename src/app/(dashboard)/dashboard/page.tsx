@@ -10,7 +10,7 @@ export default function MainPageDashboard() {
             Selamat Datang, Mahdy
           </h1>
           <p className="text-sm text-neutral-400">
-            Diam, males-malesan, Bergerak, tuntas kerjaan
+            Diam, males-malesan, Bergerak, beresin kerjaan
           </p>
         </div>
       </div>
