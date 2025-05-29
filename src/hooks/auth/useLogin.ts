@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { login } from "@/services/authService";
 
 export function useLogin() {
   const router = useRouter();
@@ -19,27 +20,16 @@ export function useLogin() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BERESIN}/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        },
-      );
+      const response = await login(formData);
 
-      const data = await response.json();
-
-      if (response.ok) {
-        const tokenBase64 = btoa(data.data.access_token);
+      if (response.status === 200) {
+        const tokenBase64 = btoa(response.data.access_token);
         Cookies.set("appToken", tokenBase64, {
           expires: 7,
           secure: true,
           sameSite: "strict",
         });
-        toast.success(data.message);
+        toast.success(response.message);
         router.push("/dashboard");
       } else {
         router.push("/login");
