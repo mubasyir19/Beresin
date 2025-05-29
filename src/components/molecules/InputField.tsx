@@ -29,7 +29,7 @@ export default function InputField({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-        className="focus:border-primary bg-secondary-1 rounded-md border border-neutral-500 px-3 py-1 focus:outline-none"
+        className="rounded-md border border-neutral-500 bg-secondary-1 px-3 py-1 text-neutral-100 focus:border-primary focus:outline-none"
       />
     </div>
   );

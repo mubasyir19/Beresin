@@ -20,7 +20,7 @@ export function useLogin() {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BERESIN}/login`,
+        `${process.env.NEXT_PUBLIC_API_BERESIN}/auth/login`,
         {
           method: "POST",
           headers: {
@@ -33,12 +33,14 @@ export function useLogin() {
       const data = await response.json();
 
       if (response.ok) {
-        const tokenBase64 = btoa(data.access_token);
+        const tokenBase64 = btoa(data.data.access_token);
         Cookies.set("appToken", tokenBase64, {
           expires: 7,
           secure: true,
           sameSite: "strict",
         });
+        toast.success(data.message);
+        router.push("/dashboard");
       } else {
         router.push("/login");
       }

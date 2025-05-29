@@ -1,3 +1,5 @@
+"use client";
+
 import InputField from "@/components/molecules/InputField";
 import { useLogin } from "@/hooks/auth/useLogin";
 import Link from "next/link";
@@ -8,7 +10,7 @@ export default function LoginPage() {
   return (
     <div className="flex h-screen w-full items-center justify-center bg-dark-blue">
       <div className="size-64 w-96">
-        <h1 className="text-center text-2xl font-bold uppercase text-indigo-600">
+        <h1 className="text-center text-2xl font-bold uppercase text-primary">
           Beresin
         </h1>
         <form
@@ -33,14 +35,14 @@ export default function LoginPage() {
           />
           <button
             type="submit"
-            className="w-full rounded-md bg-indigo-500 px-4 py-2 text-center text-base font-semibold text-white hover:bg-indigo-600"
+            className="w-full rounded-md bg-primary/80 px-4 py-2 text-center text-base font-semibold text-white hover:bg-primary"
           >
             Submit
           </button>
         </form>
         <p className="mt-3 text-center text-base text-white">
           Don&apos;t have account?{" "}
-          <Link href="#" className="font-semibold text-indigo-600">
+          <Link href="#" className="font-semibold text-primary">
             Register Account
           </Link>
         </p>
