@@ -1,9 +1,9 @@
 import { API_BASE_URL } from "@/config/constant";
 import {
-  addMemberProject,
+  addMemberProjectPayload,
   createProjectPayload,
-  updatePriorityProject,
-  updateStatusProject,
+  updatePriorityProjectPayload,
+  updateStatusProjectPayload,
 } from "@/types/project";
 
 export const getProjects = async () => {
@@ -41,7 +41,7 @@ export const addProject = async (payload: createProjectPayload) => {
   }
 };
 
-export const addProjectMember = async (payload: addMemberProject) => {
+export const addProjectMember = async (payload: addMemberProjectPayload) => {
   try {
     const response = await fetch(`${API_BASE_URL}/project/member/add`, {
       method: "POST",
@@ -59,7 +59,7 @@ export const addProjectMember = async (payload: addMemberProject) => {
   }
 };
 
-export const updateStatus = async (payload: updateStatusProject) => {
+export const updateStatus = async (payload: updateStatusProjectPayload) => {
   try {
     const response = await fetch(`${API_BASE_URL}/project/status/edit`, {
       method: "PATCH",
@@ -77,7 +77,7 @@ export const updateStatus = async (payload: updateStatusProject) => {
   }
 };
 
-export const updatePriority = async (payload: updatePriorityProject) => {
+export const updatePriority = async (payload: updatePriorityProjectPayload) => {
   try {
     const response = await fetch(`${API_BASE_URL}/project/priority/edit`, {
       method: "PATCH",

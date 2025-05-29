@@ -8,17 +8,17 @@ export interface createProjectPayload {
   created_by: string;
 }
 
-export interface addMemberProject {
+export interface addMemberProjectPayload {
   projectId: string;
   userId: string;
   role: Member;
   joined_at: Date;
 }
 
-export interface updateStatusProject {
+export interface updateStatusProjectPayload {
   status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
 }
 
-export interface updatePriorityProject {
+export interface updatePriorityProjectPayload {
   status: "High" | "Medium" | "Low";
 }
