@@ -34,16 +34,16 @@ export default function ProjectPage() {
         <div className="">
           <Link
             href={`#`}
-            className="flex items-center gap-x-2 rounded-md bg-primary px-4 py-2 text-sm text-neutral-100"
+            className="flex items-center gap-x-2 rounded-md bg-primary px-4 py-2 text-xs text-neutral-100"
           >
             <PlusIcon className="size-4" />
-            <span>Tambah Project</span>
+            <span>Tambah</span>
           </Link>
         </div>
       </div>
-      <div className="mt-8">
-        <div className="grid grid-cols-4 gap-4">
-          <div className="flex flex-col gap-4">
+      <div className="mt-8 overflow-x-auto">
+        <div className="min-w-lg flex snap-x snap-mandatory gap-4">
+          <div className="flex shrink-0 flex-col gap-4 lg:basis-1/4">
             <div className="border-b-2 border-red-600 py-3">
               <p className="text-center text-base font-medium text-white">
                 Belum Mulai
@@ -82,7 +82,7 @@ export default function ProjectPage() {
               </p>
             )}
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex shrink-0 flex-col gap-4 lg:basis-1/4">
             <div className="border-b-2 border-yellow-600 py-3">
               <p className="text-center text-base font-medium text-white">
                 In Progress
@@ -121,7 +121,7 @@ export default function ProjectPage() {
               </p>
             )}
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex shrink-0 flex-col gap-4 lg:basis-1/4">
             <div className="border-b-2 border-cyan-600 py-3">
               <p className="text-center text-base font-medium text-white">
                 Review
@@ -160,7 +160,7 @@ export default function ProjectPage() {
               </p>
             )}
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex shrink-0 flex-col gap-4 lg:basis-1/4">
             <div className="border-b-2 border-emerald-600 py-3">
               <p className="text-center text-base font-medium text-white">
                 Selesai

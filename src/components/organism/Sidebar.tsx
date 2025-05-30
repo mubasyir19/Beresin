@@ -6,7 +6,7 @@ import { listMenuItems } from "@/data";
 
 export default function Sidebar() {
   return (
-    <aside className="bg-dark-blue border-border w-64 overflow-y-auto border-r">
+    <aside className="hidden w-64 overflow-y-auto border-r border-border bg-dark-blue lg:block">
       <div className="p-4">
         <h1 className="text-xl font-bold text-white">Beresin</h1>
       </div>
