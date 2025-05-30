@@ -1,21 +1,26 @@
+"use client";
+
 import CardTask from "@/components/organism/CardTask";
+import { useTask } from "@/hooks/task/useTask";
+import { ProjectPriority, Status } from "@/types";
+import { Task } from "@/types/task";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import React from "react";
 
 export default function TaskPage() {
-  // const notStartedTask = listProjects.filter(
-  //   (project) => project.status === "NOT_STARTED",
-  // );
-  // const inProgressTask = listProjects.filter(
-  //   (project) => project.status === "IN_PROGRESS",
-  // );
-  // const onHoldTask = listProjects.filter(
-  //   (project) => project.status === "ON_HOLD",
-  // );
-  // const completedTask = listProjects.filter(
-  //   (project) => project.status === "COMPLETED",
-  // );
+  const { tasks } = useTask();
+
+  const notStartedTask = tasks.filter(
+    (project) => project.status === "NOT_STARTED",
+  );
+  const inProgressTask = tasks.filter(
+    (project) => project.status === "IN_PROGRESS",
+  );
+  const onHoldTask = tasks.filter((project) => project.status === "ON_HOLD");
+  const completedTask = tasks.filter(
+    (project) => project.status === "COMPLETED",
+  );
 
   return (
     <div>
@@ -26,121 +31,110 @@ export default function TaskPage() {
         <div className="">
           <Link
             href={`#`}
-            className="bg-primary flex items-center gap-x-2 rounded-md px-4 py-2 text-sm text-neutral-100"
+            className="flex items-center gap-x-2 rounded-md bg-primary px-4 py-2 text-sm text-neutral-100"
           >
             <PlusIcon className="size-4" />
-            <span>Tambah Tugas</span>
+            <span>Tambah</span>
           </Link>
         </div>
       </div>
-      <div className="mt-8">
-        <div className="grid grid-cols-4 gap-4">
-          <div className="flex flex-col gap-4">
+      <div className="mt-8 overflow-x-auto">
+        <div className="flex gap-4">
+          <div className="flex shrink-0 flex-col gap-4 lg:basis-1/4">
             <div className="border-b-2 border-red-600 py-3">
               <p className="text-center text-base font-medium text-white">
                 Belum Mulai
               </p>
             </div>
-            <div className="mt-4">
-              <CardTask />
-            </div>
-            {/* {notStartedTask.length > 0 ? (
-              notStartedTask.map((project) => (
-                <CardProject
-                  key={project.name}
-                  name={project.name}
-                  description={project.description}
-                  status={project.status as Status}
-                  priority={project.priority as ProjectPriority}
-                  progress={project.progress}
-                  totalTasks={project.totalTask}
-                  taskProgress={project.taskProgress}
-                  members={project.members}
+            {notStartedTask.length > 0 ? (
+              notStartedTask.map((task: Task) => (
+                <CardTask
+                  key={task.name}
+                  id={task.id}
+                  projectId={task.projectId}
+                  name={task.name}
+                  description={task.description}
+                  date_start={task.date_start ?? new Date()}
+                  date_end={task.date_end ?? new Date()}
+                  status={task.status as Status}
+                  priority={task.priority as ProjectPriority}
                 />
               ))
             ) : (
-              <p className="italic text-gray-500">
-                No projects in this status.
-              </p>
-            )} */}
+              <p className="italic text-gray-500">No tasks in this status.</p>
+            )}
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex shrink-0 flex-col gap-4 lg:basis-1/4">
             <div className="border-b-2 border-yellow-600 py-3">
               <p className="text-center text-base font-medium text-white">
                 In Progress
               </p>
             </div>
-            {/* {inProgressTask.length > 0 ? (
-              inProgressTask.map((project) => (
-                <CardProject
-                  key={project.name}
-                  name={project.name}
-                  description={project.description}
-                  status={project.status as Status}
-                  priority={project.priority as ProjectPriority}
-                  progress={project.progress}
-                  totalTasks={project.totalTask}
-                  taskProgress={project.taskProgress}
-                  members={project.members}
+            {inProgressTask.length > 0 ? (
+              inProgressTask.map((task: Task) => (
+                <CardTask
+                  key={task.name}
+                  id={task.id}
+                  projectId={task.projectId}
+                  name={task.name}
+                  description={task.description}
+                  date_start={task.date_start ?? new Date()}
+                  date_end={task.date_end ?? new Date()}
+                  status={task.status as Status}
+                  priority={task.priority as ProjectPriority}
                 />
               ))
             ) : (
-              <p className="italic text-gray-500">
-                No projects in this status.
-              </p>
-            )} */}
+              <p className="italic text-gray-500">No tasks in this status.</p>
+            )}
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex shrink-0 flex-col gap-4 lg:basis-1/4">
             <div className="border-b-2 border-cyan-600 py-3">
               <p className="text-center text-base font-medium text-white">
                 Review
               </p>
             </div>
-            {/* {onHoldTask.length > 0 ? (
-              onHoldTask.map((project) => (
-                <CardProject
-                  key={project.name}
-                  name={project.name}
-                  description={project.description}
-                  status={project.status as Status}
-                  priority={project.priority as ProjectPriority}
-                  progress={project.progress}
-                  totalTasks={project.totalTask}
-                  taskProgress={project.taskProgress}
-                  members={project.members}
+            {onHoldTask.length > 0 ? (
+              onHoldTask.map((task: Task) => (
+                <CardTask
+                  key={task.name}
+                  id={task.id}
+                  projectId={task.projectId}
+                  name={task.name}
+                  description={task.description}
+                  date_start={task.date_start ?? new Date()}
+                  date_end={task.date_end ?? new Date()}
+                  status={task.status as Status}
+                  priority={task.priority as ProjectPriority}
                 />
               ))
             ) : (
-              <p className="italic text-gray-500">
-                No projects in this status.
-              </p>
-            )} */}
+              <p className="italic text-gray-500">No tasks in this status.</p>
+            )}
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex shrink-0 flex-col gap-4 lg:basis-1/4">
             <div className="border-b-2 border-emerald-600 py-3">
               <p className="text-center text-base font-medium text-white">
                 Selesai
               </p>
             </div>
-            {/* {completedTask.length > 0 ? (
-              completedTask.map((project) => (
-                <CardProject
-                  key={project.name}
-                  name={project.name}
-                  description={project.description}
-                  status={project.status as Status}
-                  priority={project.priority as ProjectPriority}
-                  progress={project.progress}
-                  totalTasks={project.totalTask}
-                  taskProgress={project.taskProgress}
-                  members={project.members}
+            {completedTask.length > 0 ? (
+              completedTask.map((task: Task) => (
+                <CardTask
+                  key={task.name}
+                  id={task.id}
+                  projectId={task.projectId}
+                  name={task.name}
+                  description={task.description}
+                  date_start={task.date_start ?? new Date()}
+                  date_end={task.date_end ?? new Date()}
+                  status={task.status as Status}
+                  priority={task.priority as ProjectPriority}
                 />
               ))
             ) : (
-              <p className="italic text-gray-500">
-                No projects in this status.
-              </p>
-            )} */}
+              <p className="italic text-gray-500">No tasks in this status.</p>
+            )}
           </div>
         </div>
       </div>

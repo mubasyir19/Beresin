@@ -3,6 +3,8 @@ import React from "react";
 import { getInitialsFromTwoWords } from "../../helpers/initialName";
 import Badge from "../atoms/Badge";
 import StatusBadge from "../atoms/StatusBadge";
+import { formatDate } from "@/helpers/formatDate";
+import { CardTaskProps } from "@/types/task";
 
 // interface CardTaskProps {
 //   name: string;
@@ -11,14 +13,14 @@ import StatusBadge from "../atoms/StatusBadge";
 //   priority: TaskPriority;
 // }
 
-export default function CardTask(
-  {
-    //   name,
-    //   description,
-    //   status,
-    //   priority,
-  },
-) {
+export default function CardTask({
+  name,
+  description,
+  date_start,
+  date_end,
+  status,
+  priority,
+}: CardTaskProps) {
   return (
     <div className="rounded-lg border border-border bg-secondary-1 px-5 py-4">
       <div className="flex items-center justify-between">
@@ -27,17 +29,24 @@ export default function CardTask(
             {getInitialsFromTwoWords("UI Design")}
           </p>
         </div>
-        <Badge status="Medium" />
+        <Badge status={priority} />
       </div>
       <h2 className="mt-3 line-clamp-1 text-lg font-semibold text-white">
-        UI Design
+        {name}
       </h2>
-      <StatusBadge status="NOT_STARTED" />
+      <StatusBadge status={status} />
       <p className="mt-2 line-clamp-4 text-xs text-neutral-500">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio possimus
-        facere pariatur. Rerum vitae accusamus praesentium perferendis, unde sit
-        quibusdam!
+        {description}
       </p>
+      <div className="mt-4 flex flex-col gap-1">
+        <p className="text-xs text-white">
+          Tanggal Mulai :{" "}
+          <span className="font-medium text-secondary-3">
+            {formatDate(date_start)}
+          </span>
+        </p>
+        <p className="text-xs text-white">Deadline : {formatDate(date_end)}</p>
+      </div>
       {/* <p className="mt-2 text-xs text-neutral-100">
         Tasks Done :{" "}
         <span className="text-secondary-3 font-bold">{taskProgress}</span> /{" "}

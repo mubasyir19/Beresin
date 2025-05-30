@@ -12,6 +12,17 @@ export interface Task {
   updatedAt: Date;
 }
 
+export interface CardTaskProps {
+  id: string;
+  projectId: string;
+  name: string;
+  description: string;
+  date_start: string | Date;
+  date_end: string | Date;
+  status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
+  priority: "High" | "Medium" | "Low";
+}
+
 export interface addTaskPayload {
   name: string;
   projectId: string;
