@@ -8,7 +8,7 @@ import {
 
 export const getProjects = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/project`, {
+    const response = await fetch(`${API_BASE_URL}/projects`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

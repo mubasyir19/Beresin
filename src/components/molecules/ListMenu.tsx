@@ -1,6 +1,6 @@
 "use client";
 
-import { SidebarMenuProps } from "@/types";
+import { SidebarMenuProps } from "@/types/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";

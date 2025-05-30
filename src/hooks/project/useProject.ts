@@ -1,10 +1,10 @@
-import { getProjects } from "@/services/projectService";
-import { createProjectPayload } from "@/types/project";
+import { addProject, getProjects } from "@/services/projectService";
+import { createProjectPayload, Project } from "@/types/project";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export const useProject = () => {
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -14,7 +14,9 @@ export const useProject = () => {
     try {
       const response = await getProjects();
 
-      if (response.success) {
+      console.log(response);
+
+      if (response.status === 200) {
         setProjects(response.data);
       } else {
         throw new Error(response.message || "failed fetch project");
@@ -30,14 +32,17 @@ export const useProject = () => {
     }
   }, []);
 
-  const addProject = useCallback(async (payload: createProjectPayload) => {
+  const createProject = useCallback(async (payload: createProjectPayload) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await addProject(payload);
+      // Perbaikan: Panggil fungsi API yang benar untuk membuat proyek
+      const response = await addProject(payload); // <-- PERBAIKAN DI SINI!
 
       console.log("hasil tambah data = ", response);
       toast.success("Proyek berhasil dibuat!");
+      // Opsional: Setelah berhasil menambahkan, mungkin Anda ingin me-refresh daftar proyek
+      // fetchProjects(); // Jika Anda ingin daftar proyek langsung terupdate
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
@@ -49,7 +54,7 @@ export const useProject = () => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, []); // Dependensi kosong karena fungsi ini tidak bergantung pada state/props lokal yang berubah
 
   useEffect(() => {
     fetchProjects();
@@ -60,6 +65,6 @@ export const useProject = () => {
     isLoading,
     error,
     fetchProjects,
-    addProject,
+    createProject,
   };
 };

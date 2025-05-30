@@ -1,22 +1,28 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import CardProject from "@/components/organism/CardProject";
-import { listProjects } from "@/data";
-import { ProjectPriority, ProjectStatus } from "@/types";
+import { ProjectPriority, Status } from "@/types";
+import { useProject } from "@/hooks/project/useProject";
+import { Project } from "@/types/project";
 
 export default function ProjectPage() {
-  const notStartedProject = listProjects.filter(
-    (project) => project.status === "NOT_STARTED",
+  const { projects } = useProject();
+  console.log("ini datanya = ", projects);
+
+  const notStartedProject = projects.filter(
+    (project: Project) => project.status === "NOT_STARTED",
   );
-  const inProgressProject = listProjects.filter(
-    (project) => project.status === "IN_PROGRESS",
+  const inProgressProject = projects.filter(
+    (project: Project) => project.status === "IN_PROGRESS",
   );
-  const onHoldProject = listProjects.filter(
-    (project) => project.status === "ON_HOLD",
+  const onHoldProject = projects.filter(
+    (project: Project) => project.status === "ON_HOLD",
   );
-  const completedProject = listProjects.filter(
-    (project) => project.status === "COMPLETED",
+  const completedProject = projects.filter(
+    (project: Project) => project.status === "COMPLETED",
   );
 
   return (
@@ -28,7 +34,7 @@ export default function ProjectPage() {
         <div className="">
           <Link
             href={`#`}
-            className="bg-primary flex items-center gap-x-2 rounded-md px-4 py-2 text-sm text-neutral-100"
+            className="flex items-center gap-x-2 rounded-md bg-primary px-4 py-2 text-sm text-neutral-100"
           >
             <PlusIcon className="size-4" />
             <span>Tambah Project</span>
@@ -44,19 +50,32 @@ export default function ProjectPage() {
               </p>
             </div>
             {notStartedProject.length > 0 ? (
-              notStartedProject.map((project) => (
-                <CardProject
-                  key={project.name}
-                  name={project.name}
-                  description={project.description}
-                  status={project.status as ProjectStatus}
-                  priority={project.priority as ProjectPriority}
-                  progress={project.progress}
-                  totalTasks={project.totalTask}
-                  taskProgress={project.taskProgress}
-                  members={project.members}
-                />
-              ))
+              notStartedProject.map((item: Project) => {
+                const totalTasks = item.Task?.length || 0;
+                const completedTasks =
+                  item.Task?.filter((task) => task.status === "COMPLETED")
+                    .length || 0;
+                const progress =
+                  totalTasks > 0
+                    ? Math.round((completedTasks / totalTasks) * 100)
+                    : 0;
+                return (
+                  <CardProject
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    description={item.description}
+                    date_start={item.date_start ?? new Date()}
+                    date_end={item.date_end ?? new Date()}
+                    status={item.status as Status}
+                    priority={item.priority as ProjectPriority}
+                    progress={progress}
+                    totalTasks={item.Task?.length}
+                    taskProgress={completedTasks}
+                    members={item.ProjectMember ?? []}
+                  />
+                );
+              })
             ) : (
               <p className="italic text-gray-500">
                 No projects in this status.
@@ -70,19 +89,32 @@ export default function ProjectPage() {
               </p>
             </div>
             {inProgressProject.length > 0 ? (
-              inProgressProject.map((project) => (
-                <CardProject
-                  key={project.name}
-                  name={project.name}
-                  description={project.description}
-                  status={project.status as ProjectStatus}
-                  priority={project.priority as ProjectPriority}
-                  progress={project.progress}
-                  totalTasks={project.totalTask}
-                  taskProgress={project.taskProgress}
-                  members={project.members}
-                />
-              ))
+              inProgressProject.map((item: Project) => {
+                const totalTasks = item.Task?.length || 0;
+                const completedTasks =
+                  item.Task?.filter((task) => task.status === "COMPLETED")
+                    .length || 0;
+                const progress =
+                  totalTasks > 0
+                    ? Math.round((completedTasks / totalTasks) * 100)
+                    : 0;
+                return (
+                  <CardProject
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    description={item.description}
+                    date_start={item.date_start ?? new Date()}
+                    date_end={item.date_end ?? new Date()}
+                    status={item.status as Status}
+                    priority={item.priority as ProjectPriority}
+                    progress={progress}
+                    totalTasks={item.Task?.length}
+                    taskProgress={completedTasks}
+                    members={item.ProjectMember ?? []}
+                  />
+                );
+              })
             ) : (
               <p className="italic text-gray-500">
                 No projects in this status.
@@ -96,19 +128,32 @@ export default function ProjectPage() {
               </p>
             </div>
             {onHoldProject.length > 0 ? (
-              onHoldProject.map((project) => (
-                <CardProject
-                  key={project.name}
-                  name={project.name}
-                  description={project.description}
-                  status={project.status as ProjectStatus}
-                  priority={project.priority as ProjectPriority}
-                  progress={project.progress}
-                  totalTasks={project.totalTask}
-                  taskProgress={project.taskProgress}
-                  members={project.members}
-                />
-              ))
+              onHoldProject.map((item: Project) => {
+                const totalTasks = item.Task?.length || 0;
+                const completedTasks =
+                  item.Task?.filter((task) => task.status === "COMPLETED")
+                    .length || 0;
+                const progress =
+                  totalTasks > 0
+                    ? Math.round((completedTasks / totalTasks) * 100)
+                    : 0;
+                return (
+                  <CardProject
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    description={item.description}
+                    date_start={item.date_start ?? new Date()}
+                    date_end={item.date_end ?? new Date()}
+                    status={item.status as Status}
+                    priority={item.priority as ProjectPriority}
+                    progress={progress}
+                    totalTasks={item.Task?.length}
+                    taskProgress={completedTasks}
+                    members={item.ProjectMember ?? []}
+                  />
+                );
+              })
             ) : (
               <p className="italic text-gray-500">
                 No projects in this status.
@@ -122,19 +167,32 @@ export default function ProjectPage() {
               </p>
             </div>
             {completedProject.length > 0 ? (
-              completedProject.map((project) => (
-                <CardProject
-                  key={project.name}
-                  name={project.name}
-                  description={project.description}
-                  status={project.status as ProjectStatus}
-                  priority={project.priority as ProjectPriority}
-                  progress={project.progress}
-                  totalTasks={project.totalTask}
-                  taskProgress={project.taskProgress}
-                  members={project.members}
-                />
-              ))
+              completedProject.map((item: Project) => {
+                const totalTasks = item.Task?.length || 0;
+                const completedTasks =
+                  item.Task?.filter((task) => task.status === "COMPLETED")
+                    .length || 0;
+                const progress =
+                  totalTasks > 0
+                    ? Math.round((completedTasks / totalTasks) * 100)
+                    : 0;
+                return (
+                  <CardProject
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    description={item.description}
+                    date_start={item.date_start ?? new Date()}
+                    date_end={item.date_end ?? new Date()}
+                    status={item.status as Status}
+                    priority={item.priority as ProjectPriority}
+                    progress={progress}
+                    totalTasks={item.Task?.length}
+                    taskProgress={completedTasks}
+                    members={item.ProjectMember ?? []}
+                  />
+                );
+              })
             ) : (
               <p className="italic text-gray-500">
                 No projects in this status.

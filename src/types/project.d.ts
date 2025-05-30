@@ -1,3 +1,32 @@
+import { Task } from "./task";
+
+export interface Project {
+  id: string;
+  name: string;
+  description: string;
+  date_start?: string | Date;
+  date_end?: string | Date;
+  status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
+  priority: "High" | "Medium" | "Low";
+  created_by: string;
+  ProjectMember?: memberProjectProps[] | null;
+  Task?: Task[] | null;
+}
+
+export interface CardProjectProps {
+  id: string;
+  name: string;
+  description: string;
+  date_start: string | Date;
+  date_end: string | Date;
+  status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
+  priority: "High" | "Medium" | "Low";
+  progress?: number;
+  totalTasks?: number;
+  taskProgress?: number;
+  members?: memberProjectProps[];
+}
+
 export interface createProjectPayload {
   name: string;
   description: string;
@@ -6,6 +35,17 @@ export interface createProjectPayload {
   status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
   priority: "High" | "Medium" | "Low";
   created_by: string;
+}
+
+export interface memberProjectProps {
+  id: string;
+  projectId: string;
+  userId: string;
+  user: {
+    fullname: string;
+  };
+  role: Member;
+  joined_at: Date;
 }
 
 export interface addMemberProjectPayload {

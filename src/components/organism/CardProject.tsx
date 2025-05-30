@@ -3,24 +3,16 @@ import { getInitialsFromTwoWords } from "../../helpers/initialName";
 import Badge from "../atoms/Badge";
 import ProgressBar from "../molecules/ProgressBar";
 import AvatarGroup from "../molecules/AvatarGroup";
-import { ProjectPriority, Status, TeamMember } from "@/types";
 import Link from "next/link";
 import StatusBadge from "../atoms/StatusBadge";
-
-interface CardProjectProps {
-  name: string;
-  description: string;
-  status: Status;
-  priority: ProjectPriority;
-  progress: number;
-  totalTasks: number;
-  taskProgress: number;
-  members: TeamMember[];
-}
+import { CardProjectProps } from "@/types/project";
+import { formatDate } from "@/helpers/formatDate";
 
 export default function CardProject({
   name,
   description,
+  date_start,
+  date_end,
   status,
   priority,
   progress,
@@ -48,6 +40,15 @@ export default function CardProject({
         <span className="font-bold text-secondary-3">{taskProgress}</span> /{" "}
         {totalTasks}
       </p>
+      <div className="mt-4 flex flex-col gap-1">
+        <p className="text-xs text-white">
+          Tanggal Mulai :{" "}
+          <span className="font-medium text-secondary-3">
+            {formatDate(date_start)}
+          </span>
+        </p>
+        <p className="text-xs text-white">Deadline : {formatDate(date_end)}</p>
+      </div>
       <div className="mt-4">
         <ProgressBar percentage={progress} />
       </div>

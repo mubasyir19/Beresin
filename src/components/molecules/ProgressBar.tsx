@@ -1,10 +1,10 @@
 import React from "react";
 
 interface ProgressBarProps {
-  percentage: number;
+  percentage?: number;
 }
 
-export default function ProgressBar({ percentage }: ProgressBarProps) {
+export default function ProgressBar({ percentage = 0 }: ProgressBarProps) {
   return (
     <>
       <div className="flex items-center justify-between">
@@ -13,7 +13,7 @@ export default function ProgressBar({ percentage }: ProgressBarProps) {
       </div>
       <div className="mt-1 h-1 w-full rounded-full bg-gray-200 dark:bg-gray-700">
         <div
-          className="bg-secondary-3 h-1 rounded-full"
+          className="h-1 rounded-full bg-secondary-3"
           style={{ width: `${percentage}%` }}
         ></div>
       </div>
