@@ -36,13 +36,10 @@ export const useProject = () => {
     setIsLoading(true);
     setError(null);
     try {
-      // Perbaikan: Panggil fungsi API yang benar untuk membuat proyek
-      const response = await addProject(payload); // <-- PERBAIKAN DI SINI!
+      const response = await addProject(payload);
 
       console.log("hasil tambah data = ", response);
       toast.success("Proyek berhasil dibuat!");
-      // Opsional: Setelah berhasil menambahkan, mungkin Anda ingin me-refresh daftar proyek
-      // fetchProjects(); // Jika Anda ingin daftar proyek langsung terupdate
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);

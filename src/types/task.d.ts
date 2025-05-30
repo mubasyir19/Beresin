@@ -11,3 +11,22 @@ export interface Task {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface addTaskPayload {
+  name: string;
+  projectId: string;
+  description: string;
+  date_start: string;
+  date_end: string;
+  status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
+  priority: "High" | "Medium" | "Low";
+  created_by: string;
+}
+
+export interface updateStatusTaskPayload {
+  status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
+}
+
+export interface updatePriorityTaskPayload {
+  status: "High" | "Medium" | "Low";
+}
