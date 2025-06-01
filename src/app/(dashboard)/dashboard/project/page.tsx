@@ -1,16 +1,18 @@
 "use client";
 
-import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import CardProject from "@/components/organism/CardProject";
 import { ProjectPriority, Status } from "@/types";
 import { useProject } from "@/hooks/project/useProject";
 import { Project } from "@/types/project";
+import Modal from "@/components/organism/Modal";
+import InputField from "@/components/molecules/InputField";
 
 export default function ProjectPage() {
   const { projects } = useProject();
-  console.log("ini datanya = ", projects);
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   const notStartedProject = projects.filter(
     (project: Project) => project.status === "NOT_STARTED",
@@ -32,13 +34,13 @@ export default function ProjectPage() {
           <h1 className="text-2xl font-semibold text-white">Project</h1>
         </div>
         <div className="">
-          <Link
-            href={`#`}
+          <button
+            onClick={() => setModalOpen(true)}
             className="flex items-center gap-x-2 rounded-md bg-primary px-4 py-2 text-xs text-neutral-100"
           >
             <PlusIcon className="size-4" />
             <span>Tambah</span>
-          </Link>
+          </button>
         </div>
       </div>
       <div className="mt-8 overflow-x-auto">
@@ -201,6 +203,87 @@ export default function ProjectPage() {
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title="Tambah Projek"
+      >
+        <form className="flex flex-col gap-3">
+          <InputField
+            type="text"
+            label="Nama Projek"
+            name="name"
+            placeholder="Ketik nama projek"
+          />
+          <InputField
+            type="text"
+            label="Deskripsi"
+            name="description"
+            placeholder="Ketik deskripsi singkat"
+          />
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="date_start"
+              className="text-xs text-white md:text-sm lg:text-base"
+            >
+              Tanggal Mulai
+            </label>
+            <input
+              type="date"
+              name="date_start"
+              className="rounded-md border border-neutral-500 bg-secondary-1 px-3 py-1 text-neutral-100 focus:border-primary focus:outline-none"
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="date_end"
+              className="text-xs text-white md:text-sm lg:text-base"
+            >
+              Deadline
+            </label>
+            <input
+              type="date"
+              name="date_end"
+              className="rounded-md border border-neutral-500 bg-secondary-1 px-3 py-1 text-neutral-100 focus:border-primary focus:outline-none"
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="date_end"
+              className="text-xs text-white md:text-sm lg:text-base"
+            >
+              Status Projek
+            </label>
+            <select
+              name="status"
+              id="status"
+              className="rounded-md border border-neutral-500 bg-secondary-1 px-3 py-1 text-neutral-100 focus:border-primary focus:outline-none"
+            >
+              <option value="NOT_STARTED">Belum Mulai</option>
+              <option value="IN_PROGRESS">Sedang Progress</option>
+              <option value="ON_HOLD">Review</option>
+              <option value="COMPLETED">Selesai</option>
+            </select>
+          </div>
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="date_end"
+              className="text-xs text-white md:text-sm lg:text-base"
+            >
+              Prioritas Projek
+            </label>
+            <select
+              name="priority"
+              id="priority"
+              className="rounded-md border border-neutral-500 bg-secondary-1 px-3 py-1 text-neutral-100 focus:border-primary focus:outline-none"
+            >
+              <option value="LOW">Low</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="HIGH">High</option>
+            </select>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 }

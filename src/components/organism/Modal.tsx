@@ -37,7 +37,7 @@ export default function Modal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
       <div
-        className={`w-full rounded-2xl bg-white shadow-lg dark:bg-zinc-900 ${sizeClasses[size]} relative p-6 transition-all`}
+        className={`w-full rounded-2xl bg-secondary-1 shadow-lg ${sizeClasses[size]} relative p-6 transition-all`}
       >
         {showCloseButton && (
           <button
