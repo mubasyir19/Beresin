@@ -8,6 +8,7 @@ import { useProject } from "@/hooks/project/useProject";
 import { Project } from "@/types/project";
 import Modal from "@/components/organism/Modal";
 import InputField from "@/components/molecules/InputField";
+import { priority, status } from "@/config/constant";
 
 export default function ProjectPage() {
   const { projects } = useProject();
@@ -259,10 +260,11 @@ export default function ProjectPage() {
               id="status"
               className="rounded-md border border-neutral-500 bg-secondary-1 px-3 py-1 text-neutral-100 focus:border-primary focus:outline-none"
             >
-              <option value="NOT_STARTED">Belum Mulai</option>
-              <option value="IN_PROGRESS">Sedang Progress</option>
-              <option value="ON_HOLD">Review</option>
-              <option value="COMPLETED">Selesai</option>
+              {status.map((s) => (
+                <option key={s.value} value={s.value}>
+                  {s.label}
+                </option>
+              ))}
             </select>
           </div>
           <div className="flex flex-col gap-1">
@@ -277,10 +279,17 @@ export default function ProjectPage() {
               id="priority"
               className="rounded-md border border-neutral-500 bg-secondary-1 px-3 py-1 text-neutral-100 focus:border-primary focus:outline-none"
             >
-              <option value="LOW">Low</option>
-              <option value="MEDIUM">Medium</option>
-              <option value="HIGH">High</option>
+              {priority.map((p) => (
+                <option key={p.value} value={p.value}>
+                  {p.label}
+                </option>
+              ))}
             </select>
+          </div>
+          <div className="">
+            <button className="w-full rounded-md bg-primary py-2 text-xs text-white hover:bg-primary/80 md:text-sm lg:text-base">
+              Submit
+            </button>
           </div>
         </form>
       </Modal>
