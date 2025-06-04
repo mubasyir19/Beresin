@@ -12,3 +12,9 @@ export const priority = [
   { value: "MEDIUM", label: "Medium" },
   { value: "HIGH", label: "High" },
 ];
+
+export const priorityOrder = {
+  HIGH: 1,
+  MEDIUM: 2,
+  LOW: 3,
+};

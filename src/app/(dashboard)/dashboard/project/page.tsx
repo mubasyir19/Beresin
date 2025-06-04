@@ -8,24 +8,25 @@ import { useProject } from "@/hooks/project/useProject";
 import { Project } from "@/types/project";
 import Modal from "@/components/organism/Modal";
 import FormAddProject from "@/components/organism/FormAddProject";
+import { priorityOrder } from "@/config/constant";
 
 export default function ProjectPage() {
   const { projects, fetchProjects } = useProject();
 
   const [modalOpen, setModalOpen] = useState(false);
 
-  const notStartedProject = projects.filter(
-    (project: Project) => project.status === "NOT_STARTED",
-  );
-  const inProgressProject = projects.filter(
-    (project: Project) => project.status === "IN_PROGRESS",
-  );
-  const onHoldProject = projects.filter(
-    (project: Project) => project.status === "ON_HOLD",
-  );
-  const completedProject = projects.filter(
-    (project: Project) => project.status === "COMPLETED",
-  );
+  const notStartedProject = projects
+    .filter((project: Project) => project.status === "NOT_STARTED")
+    .sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+  const inProgressProject = projects
+    .filter((project: Project) => project.status === "IN_PROGRESS")
+    .sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+  const onHoldProject = projects
+    .filter((project: Project) => project.status === "ON_HOLD")
+    .sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+  const completedProject = projects
+    .filter((project: Project) => project.status === "COMPLETED")
+    .sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
 
   const handleSuccess = async () => {
     setModalOpen(false);
