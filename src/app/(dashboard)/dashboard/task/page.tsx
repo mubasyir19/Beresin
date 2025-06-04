@@ -2,7 +2,7 @@
 
 import CardTask from "@/components/organism/CardTask";
 import { useTask } from "@/hooks/task/useTask";
-import { ProjectPriority, Status } from "@/types";
+import { Status } from "@/types";
 import { Task } from "@/types/task";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -11,16 +11,13 @@ import React from "react";
 export default function TaskPage() {
   const { tasks } = useTask();
 
-  const notStartedTask = tasks.filter(
-    (project) => project.status === "NOT_STARTED",
-  );
-  const inProgressTask = tasks.filter(
-    (project) => project.status === "IN_PROGRESS",
-  );
-  const onHoldTask = tasks.filter((project) => project.status === "ON_HOLD");
-  const completedTask = tasks.filter(
-    (project) => project.status === "COMPLETED",
-  );
+  const notStartedTask =
+    tasks?.filter((task) => task.status === "NOT_STARTED") || [];
+  const inProgressTask =
+    tasks?.filter((task) => task.status === "IN_PROGRESS") || [];
+  const onHoldTask = tasks?.filter((task) => task.status === "ON_HOLD") || [];
+  const completedTask =
+    tasks?.filter((task) => task.status === "COMPLETED") || [];
 
   return (
     <div>
@@ -46,20 +43,22 @@ export default function TaskPage() {
                 Belum Mulai
               </p>
             </div>
-            {notStartedTask.length > 0 ? (
-              notStartedTask.map((task: Task) => (
-                <CardTask
-                  key={task.name}
-                  id={task.id}
-                  projectId={task.projectId}
-                  name={task.name}
-                  description={task.description}
-                  date_start={task.date_start ?? new Date()}
-                  date_end={task.date_end ?? new Date()}
-                  status={task.status as Status}
-                  priority={task.priority as ProjectPriority}
-                />
-              ))
+            {notStartedTask?.length > 0 ? (
+              notStartedTask.map((task: Task) => {
+                return (
+                  <CardTask
+                    key={task.name}
+                    id={task.id}
+                    projectId={task.projectId}
+                    name={task.name}
+                    description={task.description}
+                    date_start={task.date_start ?? new Date()}
+                    date_end={task.date_end ?? new Date()}
+                    status={task.status as Status}
+                    priority={task.priority}
+                  />
+                );
+              })
             ) : (
               <p className="italic text-gray-500">No tasks in this status.</p>
             )}
@@ -70,7 +69,7 @@ export default function TaskPage() {
                 In Progress
               </p>
             </div>
-            {inProgressTask.length > 0 ? (
+            {inProgressTask?.length > 0 ? (
               inProgressTask.map((task: Task) => (
                 <CardTask
                   key={task.name}
@@ -81,7 +80,7 @@ export default function TaskPage() {
                   date_start={task.date_start ?? new Date()}
                   date_end={task.date_end ?? new Date()}
                   status={task.status as Status}
-                  priority={task.priority as ProjectPriority}
+                  priority={task.priority}
                 />
               ))
             ) : (
@@ -94,7 +93,7 @@ export default function TaskPage() {
                 Review
               </p>
             </div>
-            {onHoldTask.length > 0 ? (
+            {onHoldTask?.length > 0 ? (
               onHoldTask.map((task: Task) => (
                 <CardTask
                   key={task.name}
@@ -105,7 +104,7 @@ export default function TaskPage() {
                   date_start={task.date_start ?? new Date()}
                   date_end={task.date_end ?? new Date()}
                   status={task.status as Status}
-                  priority={task.priority as ProjectPriority}
+                  priority={task.priority}
                 />
               ))
             ) : (
@@ -118,7 +117,7 @@ export default function TaskPage() {
                 Selesai
               </p>
             </div>
-            {completedTask.length > 0 ? (
+            {completedTask?.length > 0 ? (
               completedTask.map((task: Task) => (
                 <CardTask
                   key={task.name}
@@ -129,7 +128,7 @@ export default function TaskPage() {
                   date_start={task.date_start ?? new Date()}
                   date_end={task.date_end ?? new Date()}
                   status={task.status as Status}
-                  priority={task.priority as ProjectPriority}
+                  priority={task.priority}
                 />
               ))
             ) : (
