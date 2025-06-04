@@ -1,8 +1,8 @@
 import { memberProjectProps } from "./project";
 
-export type BadgeStatus = "High" | "Medium" | "Low";
-export type ProjectPriority = "High" | "Medium" | "Low";
-export type TaskPriority = "High" | "Medium" | "Low";
+export type BadgeStatus = "HIGH" | "MEDIUM" | "LOW";
+export type ProjectPriority = "HIGH" | "MEDIUM" | "LOW";
+export type TaskPriority = "HIGH" | "MEDIUM" | "LOW";
 export type Status = "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
 
 export interface StatusProps {

@@ -14,10 +14,10 @@ export const useProject = () => {
     try {
       const response = await getProjects();
 
-      console.log(response);
-
-      if (response.status === 200) {
+      if (response.status === 200 && Array.isArray(response.data)) {
         setProjects(response.data);
+      } else if (response.status === 200 && response.data === null) {
+        setProjects([]);
       } else {
         throw new Error(response.message || "failed fetch project");
       }
@@ -27,31 +27,36 @@ export const useProject = () => {
       } else {
         setError("an error occured when get data");
       }
+      setProjects([]);
     } finally {
       setIsLoading(false);
     }
   }, []);
 
-  const createProject = useCallback(async (payload: createProjectPayload) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await addProject(payload);
+  const createProject = useCallback(
+    async (payload: createProjectPayload) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await addProject(payload);
 
-      console.log("hasil tambah data = ", response);
-      toast.success("Proyek berhasil dibuat!");
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-        toast.error(error.message);
-      } else {
-        setError("an error occured when add data");
-        toast.error("an error occured when add data");
+        console.log("hasil tambah data = ", response);
+        toast.success("Proyek berhasil dibuat!");
+        await fetchProjects();
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+          toast.error(error.message);
+        } else {
+          setError("an error occured when add data");
+          toast.error("an error occured when add data");
+        }
+      } finally {
+        setIsLoading(false);
       }
-    } finally {
-      setIsLoading(false);
-    }
-  }, []); // Dependensi kosong karena fungsi ini tidak bergantung pada state/props lokal yang berubah
+    },
+    [fetchProjects],
+  );
 
   useEffect(() => {
     fetchProjects();

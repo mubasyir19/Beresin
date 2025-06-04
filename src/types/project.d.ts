@@ -7,7 +7,7 @@ export interface Project {
   date_start?: string | Date;
   date_end?: string | Date;
   status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
-  priority: "High" | "Medium" | "Low";
+  priority: "HIGH" | "MEDIUM" | "LOW";
   created_by: string;
   ProjectMember?: memberProjectProps[] | null;
   Task?: Task[] | null;
@@ -20,7 +20,7 @@ export interface CardProjectProps {
   date_start: string | Date;
   date_end: string | Date;
   status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
-  priority: "High" | "Medium" | "Low";
+  priority: "HIGH" | "MEDIUM" | "LOW";
   progress?: number;
   totalTasks?: number;
   taskProgress?: number;
@@ -33,7 +33,7 @@ export interface createProjectPayload {
   date_start: string;
   date_end: string;
   status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
-  priority: "High" | "Medium" | "Low";
+  priority: "HIGH" | "MEDIUM" | "LOW";
   created_by: string;
 }
 

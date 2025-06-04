@@ -1,4 +1,5 @@
 import { API_BASE_URL } from "@/config/constant";
+import Cookies from "js-cookie";
 
 interface LoginCredentials {
   username: string;
@@ -26,4 +27,10 @@ export const login = async (credentials: LoginCredentials) => {
     console.log(error);
     throw error;
   }
+};
+
+export const getAuthToken = (): string | undefined => {
+  const tokenCookies = Cookies.get("authToken");
+  const jwtToken = atob(tokenCookies as string);
+  return jwtToken;
 };

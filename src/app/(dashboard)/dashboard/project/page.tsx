@@ -7,11 +7,10 @@ import { ProjectPriority, Status } from "@/types";
 import { useProject } from "@/hooks/project/useProject";
 import { Project } from "@/types/project";
 import Modal from "@/components/organism/Modal";
-import InputField from "@/components/molecules/InputField";
-import { priority, status } from "@/config/constant";
+import FormAddProject from "@/components/organism/FormAddProject";
 
 export default function ProjectPage() {
-  const { projects } = useProject();
+  const { projects, fetchProjects } = useProject();
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -27,6 +26,22 @@ export default function ProjectPage() {
   const completedProject = projects.filter(
     (project: Project) => project.status === "COMPLETED",
   );
+
+  const handleSuccess = async () => {
+    setModalOpen(false);
+    await fetchProjects();
+  };
+
+  const calculateProjectProgress = (project: Project) => {
+    const totalTasks = project.Task?.length || 0;
+    const completedTasks =
+      project.Task && Array.isArray(project.Task)
+        ? project.Task.filter((task) => task.status === "COMPLETED").length
+        : 0;
+    const progress =
+      totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+    return { totalTasks, completedTasks, progress };
+  };
 
   return (
     <div>
@@ -54,14 +69,8 @@ export default function ProjectPage() {
             </div>
             {notStartedProject.length > 0 ? (
               notStartedProject.map((item: Project) => {
-                const totalTasks = item.Task?.length || 0;
-                const completedTasks =
-                  item.Task?.filter((task) => task.status === "COMPLETED")
-                    .length || 0;
-                const progress =
-                  totalTasks > 0
-                    ? Math.round((completedTasks / totalTasks) * 100)
-                    : 0;
+                const { totalTasks, completedTasks, progress } =
+                  calculateProjectProgress(item);
                 return (
                   <CardProject
                     key={item.id}
@@ -73,7 +82,7 @@ export default function ProjectPage() {
                     status={item.status as Status}
                     priority={item.priority as ProjectPriority}
                     progress={progress}
-                    totalTasks={item.Task?.length}
+                    totalTasks={totalTasks}
                     taskProgress={completedTasks}
                     members={item.ProjectMember ?? []}
                   />
@@ -93,14 +102,8 @@ export default function ProjectPage() {
             </div>
             {inProgressProject.length > 0 ? (
               inProgressProject.map((item: Project) => {
-                const totalTasks = item.Task?.length || 0;
-                const completedTasks =
-                  item.Task?.filter((task) => task.status === "COMPLETED")
-                    .length || 0;
-                const progress =
-                  totalTasks > 0
-                    ? Math.round((completedTasks / totalTasks) * 100)
-                    : 0;
+                const { totalTasks, completedTasks, progress } =
+                  calculateProjectProgress(item);
                 return (
                   <CardProject
                     key={item.id}
@@ -112,7 +115,7 @@ export default function ProjectPage() {
                     status={item.status as Status}
                     priority={item.priority as ProjectPriority}
                     progress={progress}
-                    totalTasks={item.Task?.length}
+                    totalTasks={totalTasks}
                     taskProgress={completedTasks}
                     members={item.ProjectMember ?? []}
                   />
@@ -132,14 +135,8 @@ export default function ProjectPage() {
             </div>
             {onHoldProject.length > 0 ? (
               onHoldProject.map((item: Project) => {
-                const totalTasks = item.Task?.length || 0;
-                const completedTasks =
-                  item.Task?.filter((task) => task.status === "COMPLETED")
-                    .length || 0;
-                const progress =
-                  totalTasks > 0
-                    ? Math.round((completedTasks / totalTasks) * 100)
-                    : 0;
+                const { totalTasks, completedTasks, progress } =
+                  calculateProjectProgress(item);
                 return (
                   <CardProject
                     key={item.id}
@@ -151,7 +148,7 @@ export default function ProjectPage() {
                     status={item.status as Status}
                     priority={item.priority as ProjectPriority}
                     progress={progress}
-                    totalTasks={item.Task?.length}
+                    totalTasks={totalTasks}
                     taskProgress={completedTasks}
                     members={item.ProjectMember ?? []}
                   />
@@ -171,14 +168,8 @@ export default function ProjectPage() {
             </div>
             {completedProject.length > 0 ? (
               completedProject.map((item: Project) => {
-                const totalTasks = item.Task?.length || 0;
-                const completedTasks =
-                  item.Task?.filter((task) => task.status === "COMPLETED")
-                    .length || 0;
-                const progress =
-                  totalTasks > 0
-                    ? Math.round((completedTasks / totalTasks) * 100)
-                    : 0;
+                const { totalTasks, completedTasks, progress } =
+                  calculateProjectProgress(item);
                 return (
                   <CardProject
                     key={item.id}
@@ -190,7 +181,7 @@ export default function ProjectPage() {
                     status={item.status as Status}
                     priority={item.priority as ProjectPriority}
                     progress={progress}
-                    totalTasks={item.Task?.length}
+                    totalTasks={totalTasks}
                     taskProgress={completedTasks}
                     members={item.ProjectMember ?? []}
                   />
@@ -209,89 +200,7 @@ export default function ProjectPage() {
         onClose={() => setModalOpen(false)}
         title="Tambah Projek"
       >
-        <form className="flex flex-col gap-3">
-          <InputField
-            type="text"
-            label="Nama Projek"
-            name="name"
-            placeholder="Ketik nama projek"
-          />
-          <InputField
-            type="text"
-            label="Deskripsi"
-            name="description"
-            placeholder="Ketik deskripsi singkat"
-          />
-          <div className="flex flex-col gap-1">
-            <label
-              htmlFor="date_start"
-              className="text-xs text-white md:text-sm lg:text-base"
-            >
-              Tanggal Mulai
-            </label>
-            <input
-              type="date"
-              name="date_start"
-              className="rounded-md border border-neutral-500 bg-secondary-1 px-3 py-1 text-neutral-100 focus:border-primary focus:outline-none"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label
-              htmlFor="date_end"
-              className="text-xs text-white md:text-sm lg:text-base"
-            >
-              Deadline
-            </label>
-            <input
-              type="date"
-              name="date_end"
-              className="rounded-md border border-neutral-500 bg-secondary-1 px-3 py-1 text-neutral-100 focus:border-primary focus:outline-none"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label
-              htmlFor="date_end"
-              className="text-xs text-white md:text-sm lg:text-base"
-            >
-              Status Projek
-            </label>
-            <select
-              name="status"
-              id="status"
-              className="rounded-md border border-neutral-500 bg-secondary-1 px-3 py-1 text-neutral-100 focus:border-primary focus:outline-none"
-            >
-              {status.map((s) => (
-                <option key={s.value} value={s.value}>
-                  {s.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="flex flex-col gap-1">
-            <label
-              htmlFor="date_end"
-              className="text-xs text-white md:text-sm lg:text-base"
-            >
-              Prioritas Projek
-            </label>
-            <select
-              name="priority"
-              id="priority"
-              className="rounded-md border border-neutral-500 bg-secondary-1 px-3 py-1 text-neutral-100 focus:border-primary focus:outline-none"
-            >
-              {priority.map((p) => (
-                <option key={p.value} value={p.value}>
-                  {p.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="">
-            <button className="w-full rounded-md bg-primary py-2 text-xs text-white hover:bg-primary/80 md:text-sm lg:text-base">
-              Submit
-            </button>
-          </div>
-        </form>
+        <FormAddProject onSuccess={handleSuccess} />
       </Modal>
     </div>
   );

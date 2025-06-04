@@ -24,7 +24,7 @@ export function useLogin() {
 
       if (response.status === 200) {
         const tokenBase64 = btoa(response.data.access_token);
-        Cookies.set("appToken", tokenBase64, {
+        Cookies.set("authToken", tokenBase64, {
           expires: 7,
           secure: true,
           sameSite: "strict",
