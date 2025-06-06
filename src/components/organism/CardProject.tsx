@@ -20,6 +20,7 @@ export default function CardProject({
   totalTasks,
   taskProgress,
   members,
+  task,
 }: CardProjectProps) {
   const [openModal, setOpenModal] = useState<boolean>(false);
   return (
@@ -98,15 +99,24 @@ export default function CardProject({
         <div className="mt-4">
           <ProgressBar percentage={progress} />
         </div>
-        <div className="mt-4 flex items-center justify-between">
+        <div className="mt-4">
           <AvatarGroup members={members} maxVisible={3} />
-          <Link
-            href={`#`}
-            onClick={() => setOpenModal(true)}
-            className="text-xs text-primary underline"
-          >
-            details
-          </Link>
+        </div>
+        <div className="mt-2">
+          <h3 className="font-semibold text-neutral-100">Tugas</h3>
+          <ol className="mt-2 list-inside list-decimal space-y-1 text-white">
+            {task?.length ? (
+              task?.map((t, i) => (
+                <li key={t.id} className="flex items-center gap-x-2">
+                  <p className="text-sm">{i + 1}.</p>{" "}
+                  <p className="text-sm">{t.name}</p>
+                  <StatusBadge status={t.status} />
+                </li>
+              ))
+            ) : (
+              <p className="text-xs">Belum ada tugas yang ditambahkan</p>
+            )}
+          </ol>
         </div>
       </Modal>
     </>

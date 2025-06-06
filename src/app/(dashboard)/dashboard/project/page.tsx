@@ -86,6 +86,7 @@ export default function ProjectPage() {
                     totalTasks={totalTasks}
                     taskProgress={completedTasks}
                     members={item.ProjectMember ?? []}
+                    task={item.Task ?? []}
                   />
                 );
               })

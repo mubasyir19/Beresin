@@ -36,7 +36,7 @@ export default function StatusBadge({ status }: StatusProps) {
 
   return (
     <div
-      className={`mt-2 flex w-fit items-center gap-x-2 rounded-2xl px-2 py-1 ${classes.bg}`}
+      className={`flex w-fit items-center gap-x-2 rounded-2xl px-2 py-1 ${classes.bg}`}
     >
       <div className={`size-2 rounded-full ${classes.dot}`} />
       <p className={`text-[10px] ${classes.text}`}>{status}</p>

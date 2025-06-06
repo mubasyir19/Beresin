@@ -25,6 +25,7 @@ export interface CardProjectProps {
   totalTasks?: number;
   taskProgress?: number;
   members?: memberProjectProps[];
+  task?: Task[];
 }
 
 export interface createProjectPayload {
