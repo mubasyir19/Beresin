@@ -1,4 +1,4 @@
-# BERE0SIN
+# BERESIN
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mubasyir19/Beresin/main?label=Build%20Status)](https://github.com/mubasyir19/Beresin/actions)
