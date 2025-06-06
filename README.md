@@ -1,10 +1,10 @@
-# BERESESIN
-
-## Project Management Web App
+# BERE0SIN
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/your-username/your-frontend-repo/main?label=Build%20Status)](https://github.com/your-username/your-frontend-repo/actions)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/your-netlify-site-id/deploy-status)](https://app.netlify.com/sites/your-netlify-site-name/deploys)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mubasyir19/Beresin/main?label=Build%20Status)](https://github.com/mubasyir19/Beresin/actions)
+
+<!-- [![Netlify Status](https://api.netlify.com/api/v1/badges/your-netlify-site-id/deploy-status)](https://app.netlify.com/sites/your-netlify-site-name/deploys) -->
+
 Welcome to the frontend repository for **Beresin**. This web application is built with Next.js and Tailwind CSS to provide a responsive and intuitive user experience.
 
 ---
