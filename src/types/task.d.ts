@@ -6,7 +6,7 @@ export interface Task {
   date_start: Date;
   date_end: Date;
   status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
-  priority: "High" | "Medium" | "Low";
+  priority: "HIGH" | "MEDIUM" | "LOW";
   created_by: string;
   createdAt: Date;
   updatedAt: Date;
@@ -20,7 +20,7 @@ export interface CardTaskProps {
   date_start: string | Date;
   date_end: string | Date;
   status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
-  priority: "High" | "Medium" | "Low";
+  priority: "HIGH" | "MEDIUM" | "LOW";
 }
 
 export interface addTaskPayload {
@@ -30,7 +30,7 @@ export interface addTaskPayload {
   date_start: string;
   date_end: string;
   status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
-  priority: "High" | "Medium" | "Low";
+  priority: "HIGH" | "MEDIUM" | "LOW";
   created_by: string;
 }
 
@@ -39,5 +39,5 @@ export interface updateStatusTaskPayload {
 }
 
 export interface updatePriorityTaskPayload {
-  status: "High" | "Medium" | "Low";
+  status: "HIGH" | "MEDIUM" | "LOW";
 }

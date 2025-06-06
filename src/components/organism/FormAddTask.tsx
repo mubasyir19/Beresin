@@ -1,24 +1,27 @@
-"use client";
-
+import { getAuthToken } from "@/services/authService";
+import { JwtPayload } from "@/types/user";
+import { jwtDecode } from "jwt-decode";
 import React, { useState } from "react";
 import InputField from "../molecules/InputField";
 import { priority, status } from "@/config/constant";
 import { useProject } from "@/hooks/project/useProject";
-import { createProjectPayload } from "@/types/project";
 import { toast } from "sonner";
-import { getAuthToken } from "@/services/authService";
-import { jwtDecode } from "jwt-decode";
-import { JwtPayload } from "@/types/user";
+import { useTask } from "@/hooks/task/useTask";
 
-interface FormAddProjectProps {
+interface FormAddTaskProps {
   onSuccess?: () => void;
 }
 
-export default function FormAddProject({ onSuccess }: FormAddProjectProps) {
-  const { fetchProjects, createProject } = useProject();
+export default function FormAddTask({ onSuccess }: FormAddTaskProps) {
+  const { fetchTask, createTask } = useTask();
+  const { projects } = useProject();
 
-  const [formData, setFormData] = useState<createProjectPayload>({
+  const uncompletedProject = projects.filter(
+    (project) => project.status !== "COMPLETED",
+  );
+  const [formData, setFormData] = useState({
     name: "",
+    projectId: "",
     description: "",
     date_start: "",
     date_end: "",
@@ -39,11 +42,10 @@ export default function FormAddProject({ onSuccess }: FormAddProjectProps) {
 
     const token = getAuthToken();
     const payloadToken: JwtPayload = jwtDecode(token as string);
-
     try {
       if (
         !formData.name ||
-        !formData.description ||
+        !formData.projectId ||
         !formData.date_start ||
         !formData.date_end ||
         !formData.status ||
@@ -52,14 +54,21 @@ export default function FormAddProject({ onSuccess }: FormAddProjectProps) {
         toast.error("isi form dahulu");
         return;
       }
-      const response = await createProject({
+      const response = await createTask({
         ...formData,
+        status: formData.status as
+          | "NOT_STARTED"
+          | "IN_PROGRESS"
+          | "ON_HOLD"
+          | "COMPLETED",
+        priority: formData.priority as "HIGH" | "MEDIUM" | "LOW",
         created_by: payloadToken.id,
       });
 
       console.log("output = ", response);
       setFormData({
         name: "",
+        projectId: "",
         description: "",
         date_start: "",
         date_end: "",
@@ -71,25 +80,46 @@ export default function FormAddProject({ onSuccess }: FormAddProjectProps) {
       if (onSuccess) {
         onSuccess();
 
-        await fetchProjects();
+        await fetchTask();
       }
     } catch (error) {
       console.log("terjadi error = ", error);
     }
   };
   return (
-    <form onSubmit={handleSubmit} method="POST" className="flex flex-col gap-3">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+      <div className="flex flex-col gap-1">
+        <label
+          htmlFor="projectId"
+          className="text-xs text-white md:text-sm lg:text-base"
+        >
+          Pilih Projek
+        </label>
+        <select
+          name="projectId"
+          id="projectId"
+          value={formData.projectId}
+          onChange={handleChange}
+          className="rounded-md border border-neutral-500 bg-secondary-1 px-3 py-1 text-neutral-100 focus:border-primary focus:outline-none"
+        >
+          {uncompletedProject.map((s) => (
+            <option key={s.id} value={s.id}>
+              {s.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <InputField
         type="text"
-        label="Nama Projek"
+        label="Nama Tugas"
         name="name"
         value={formData.name}
         onChange={handleChange}
-        placeholder="Ketik nama projek"
+        placeholder="Ketik nama tugas"
       />
       <InputField
         type="text"
-        label="Deskripsi"
+        label="Deskripsi Tugas"
         name="description"
         value={formData.description}
         onChange={handleChange}
@@ -168,7 +198,10 @@ export default function FormAddProject({ onSuccess }: FormAddProjectProps) {
         </select>
       </div>
       <div className="">
-        <button className="w-full rounded-md bg-primary py-2 text-xs text-white hover:bg-primary/80 md:text-sm lg:text-base">
+        <button
+          type="submit"
+          className="w-full rounded-md bg-primary py-2 text-xs text-white hover:bg-primary/80 md:text-sm lg:text-base"
+        >
           Submit
         </button>
       </div>

@@ -25,9 +25,7 @@ export default function CardTask({
     <div className="rounded-lg border border-border bg-secondary-1 px-5 py-4">
       <div className="flex items-center justify-between">
         <div className="flex size-8 items-center justify-center rounded-full bg-secondary-2">
-          <p className="text-sm text-white">
-            {getInitialsFromTwoWords("UI Design")}
-          </p>
+          <p className="text-sm text-white">{getInitialsFromTwoWords(name)}</p>
         </div>
         <Badge status={priority} />
       </div>

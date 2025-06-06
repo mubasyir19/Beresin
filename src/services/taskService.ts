@@ -24,7 +24,7 @@ export const getTasks = async () => {
 
 export const addTask = async (payload: addTaskPayload) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/project/add`, {
+    const response = await fetch(`${API_BASE_URL}/task/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,15 +1,18 @@
 "use client";
 
 import CardTask from "@/components/organism/CardTask";
+import FormAddTask from "@/components/organism/FormAddTask";
+import Modal from "@/components/organism/Modal";
 import { useTask } from "@/hooks/task/useTask";
 import { Status } from "@/types";
 import { Task } from "@/types/task";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 export default function TaskPage() {
-  const { tasks } = useTask();
+  const { tasks, fetchTask } = useTask();
+
+  const [modalAddOpen, setModalAddOpen] = useState(false);
 
   const notStartedTask =
     tasks?.filter((task) => task.status === "NOT_STARTED") || [];
@@ -19,6 +22,11 @@ export default function TaskPage() {
   const completedTask =
     tasks?.filter((task) => task.status === "COMPLETED") || [];
 
+  const handleSuccess = async () => {
+    setModalAddOpen(false);
+    await fetchTask();
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -26,13 +34,13 @@ export default function TaskPage() {
           <h1 className="text-2xl font-semibold text-white">Tugas</h1>
         </div>
         <div className="">
-          <Link
-            href={`#`}
+          <button
+            onClick={() => setModalAddOpen(true)}
             className="flex items-center gap-x-2 rounded-md bg-primary px-4 py-2 text-sm text-neutral-100"
           >
             <PlusIcon className="size-4" />
             <span>Tambah</span>
-          </Link>
+          </button>
         </div>
       </div>
       <div className="mt-8 overflow-x-auto">
@@ -136,6 +144,15 @@ export default function TaskPage() {
             )}
           </div>
         </div>
+      </div>
+      <div className="">
+        <Modal
+          isOpen={modalAddOpen}
+          onClose={() => setModalAddOpen(false)}
+          title="Tambah Tugas"
+        >
+          <FormAddTask onSuccess={handleSuccess} />
+        </Modal>
       </div>
     </div>
   );
