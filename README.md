@@ -83,6 +83,7 @@ To run this project locally, follow these steps:
 
 ├── public/  
 ├── src/
+
 │ ├── app/  
 │ ├── components/  
 │ ├── config/  
