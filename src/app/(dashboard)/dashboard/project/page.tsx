@@ -86,7 +86,7 @@ export default function ProjectPage() {
                     totalTasks={totalTasks}
                     taskProgress={completedTasks}
                     members={item.ProjectMember ?? []}
-                    task={item.Task ?? []}
+                    Task={item.Task ?? []}
                   />
                 );
               })
@@ -120,6 +120,7 @@ export default function ProjectPage() {
                     totalTasks={totalTasks}
                     taskProgress={completedTasks}
                     members={item.ProjectMember ?? []}
+                    Task={item.Task ?? []}
                   />
                 );
               })
@@ -153,6 +154,7 @@ export default function ProjectPage() {
                     totalTasks={totalTasks}
                     taskProgress={completedTasks}
                     members={item.ProjectMember ?? []}
+                    Task={item.Task ?? []}
                   />
                 );
               })
@@ -186,6 +188,7 @@ export default function ProjectPage() {
                     totalTasks={totalTasks}
                     taskProgress={completedTasks}
                     members={item.ProjectMember ?? []}
+                    Task={item.Task ?? []}
                   />
                 );
               })

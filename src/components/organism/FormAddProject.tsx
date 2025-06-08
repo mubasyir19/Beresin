@@ -43,7 +43,6 @@ export default function FormAddProject({ onSuccess }: FormAddProjectProps) {
     try {
       if (
         !formData.name ||
-        !formData.description ||
         !formData.date_start ||
         !formData.date_end ||
         !formData.status ||
