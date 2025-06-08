@@ -26,7 +26,7 @@ export interface CardTaskProps {
 export interface addTaskPayload {
   name: string;
   projectId: string;
-  description: string;
+  description?: string;
   date_start: string;
   date_end: string;
   status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";

@@ -19,6 +19,7 @@ export default function FormAddTask({ onSuccess }: FormAddTaskProps) {
   const uncompletedProject = projects.filter(
     (project) => project.status !== "COMPLETED",
   );
+
   const [formData, setFormData] = useState({
     name: "",
     projectId: "",
@@ -27,7 +28,6 @@ export default function FormAddTask({ onSuccess }: FormAddTaskProps) {
     date_end: "",
     status: "NOT_STARTED",
     priority: "LOW",
-    created_by: "",
   });
 
   const handleChange = (
@@ -74,7 +74,6 @@ export default function FormAddTask({ onSuccess }: FormAddTaskProps) {
         date_end: "",
         status: "NOT_STARTED",
         priority: "LOW",
-        created_by: "",
       });
 
       if (onSuccess) {
@@ -102,11 +101,16 @@ export default function FormAddTask({ onSuccess }: FormAddTaskProps) {
           onChange={handleChange}
           className="rounded-md border border-neutral-500 bg-secondary-1 px-3 py-1 text-neutral-100 focus:border-primary focus:outline-none"
         >
-          {uncompletedProject.map((s) => (
-            <option key={s.id} value={s.id}>
-              {s.name}
-            </option>
-          ))}
+          <option value="">-- Pilih Projek --</option>
+          {uncompletedProject.length > 0 ? (
+            uncompletedProject.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.name}
+              </option>
+            ))
+          ) : (
+            <option disabled>Tidak ada projek yang tersedia</option>
+          )}
         </select>
       </div>
       <InputField
