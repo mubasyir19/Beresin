@@ -43,7 +43,7 @@ export default function TaskPage() {
           </button>
         </div>
       </div>
-      <div className="mt-8 overflow-x-auto">
+      <div className="scrollbar-hide mt-8 overflow-x-auto">
         <div className="flex gap-4">
           <div className="flex shrink-0 flex-col gap-4 lg:basis-1/4">
             <div className="border-b-2 border-red-600 py-3">
