@@ -13,6 +13,12 @@ export const priority = [
   { value: "HIGH", label: "High" },
 ];
 
+export const RoleAccount = [
+  { value: "Admin", label: "Admin" },
+  { value: "Manager", label: "Manager" },
+  { value: "Member", label: "Member" },
+];
+
 export const priorityOrder = {
   HIGH: 1,
   MEDIUM: 2,
