@@ -1,6 +1,7 @@
 import { API_BASE_URL } from "@/config/constant";
 import { RegisterPayload } from "@/types/user";
 import Cookies from "js-cookie";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 
 interface LoginCredentials {
   username: string;
@@ -57,4 +58,19 @@ export const registerAccount = async (request: RegisterPayload) => {
     console.log(error);
     throw error;
   }
+};
+
+export const getProfile = () => {
+  const token = getAuthToken();
+  const payloadToken: JwtPayload = jwtDecode(token as string);
+
+  const profile = {
+    fullname: payloadToken.fullname,
+    bio: payloadToken.bio,
+    username: payloadToken.username,
+    email: payloadToken.email,
+    role: payloadToken.role,
+  };
+
+  return profile;
 };
