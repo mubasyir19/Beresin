@@ -4,14 +4,16 @@ import {
   updatePriorityTaskPayload,
   updateStatusTaskPayload,
 } from "@/types/task";
+import { getAuthToken } from "./authService";
 
 export const getTasks = async () => {
   try {
+    const token = getAuthToken();
     const response = await fetch(`${API_BASE_URL}/tasks`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -24,11 +26,12 @@ export const getTasks = async () => {
 
 export const addTask = async (payload: addTaskPayload) => {
   try {
+    const token = getAuthToken();
     const response = await fetch(`${API_BASE_URL}/task/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(payload),
     });
@@ -42,11 +45,12 @@ export const addTask = async (payload: addTaskPayload) => {
 
 export const updateStatus = async (payload: updateStatusTaskPayload) => {
   try {
+    const token = getAuthToken();
     const response = await fetch(`${API_BASE_URL}/task/status/edit`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(payload),
     });
@@ -60,11 +64,12 @@ export const updateStatus = async (payload: updateStatusTaskPayload) => {
 
 export const updatePriority = async (payload: updatePriorityTaskPayload) => {
   try {
+    const token = getAuthToken();
     const response = await fetch(`${API_BASE_URL}/task/priority/edit`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(payload),
     });

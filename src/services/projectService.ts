@@ -5,14 +5,16 @@ import {
   updatePriorityProjectPayload,
   updateStatusProjectPayload,
 } from "@/types/project";
+import { getAuthToken } from "./authService";
 
 export const getProjects = async () => {
   try {
+    const token = getAuthToken();
     const response = await fetch(`${API_BASE_URL}/projects`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -25,11 +27,12 @@ export const getProjects = async () => {
 
 export const addProject = async (payload: createProjectPayload) => {
   try {
+    const token = getAuthToken();
     const response = await fetch(`${API_BASE_URL}/project/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(payload),
     });
@@ -43,11 +46,12 @@ export const addProject = async (payload: createProjectPayload) => {
 
 export const addProjectMember = async (payload: addMemberProjectPayload) => {
   try {
+    const token = getAuthToken();
     const response = await fetch(`${API_BASE_URL}/project/member/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(payload),
     });
@@ -61,11 +65,12 @@ export const addProjectMember = async (payload: addMemberProjectPayload) => {
 
 export const updateStatus = async (payload: updateStatusProjectPayload) => {
   try {
+    const token = getAuthToken();
     const response = await fetch(`${API_BASE_URL}/project/status/edit`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(payload),
     });
@@ -79,11 +84,12 @@ export const updateStatus = async (payload: updateStatusProjectPayload) => {
 
 export const updatePriority = async (payload: updatePriorityProjectPayload) => {
   try {
+    const token = getAuthToken();
     const response = await fetch(`${API_BASE_URL}/project/priority/edit`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(payload),
     });

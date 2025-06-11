@@ -2,9 +2,10 @@ export type RoleType = "Admin" | "Member" | "Manager";
 export interface JwtPayload {
   id: string;
   fullname: string;
+  bio: string;
   username: string;
   email: string;
-  role: RoleUser;
+  role: RoleType;
   iat: number;
   exp: number;
 }
