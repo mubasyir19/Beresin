@@ -42,7 +42,7 @@ export default function LoginPage() {
         </form>
         <p className="mt-3 text-center text-base text-white">
           Don&apos;t have account?{" "}
-          <Link href="#" className="font-semibold text-primary">
+          <Link href="/register" className="font-semibold text-primary">
             Register Account
           </Link>
         </p>
