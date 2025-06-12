@@ -8,8 +8,10 @@ import StatusBadge from "../atoms/StatusBadge";
 import { CardProjectProps } from "@/types/project";
 import { formatDate } from "@/helpers/formatDate";
 import Modal from "./Modal";
+import CommentProject from "./CommentProject";
 
 export default function CardProject({
+  id,
   name,
   description,
   date_start,
@@ -118,6 +120,97 @@ export default function CardProject({
             )}
           </ol>
         </div>
+        {/* <div className="mt-3">
+          <h3 className="font-semibold text-neutral-100">Komentar</h3>
+          <div className="flex h-60 flex-col">
+            <div className="flex-1 overflow-y-auto">
+              <div className="p-2">
+                <div id="user" className="flex items-center gap-2">
+                  <div className="flex size-6 items-center justify-center rounded-full bg-red-600">
+                    <p className="text-xs uppercase text-white">
+                      {getInitialsFromTwoWords("Mahdy Mubasyir")}
+                    </p>
+                  </div>
+                  <p className="text-xs font-medium text-secondary-3">
+                    Mahdy Mubasyir
+                  </p>
+                  <p className="text-[10px] text-neutral-500">09.10</p>
+                </div>
+                <div id="content_message" className="mt-2 pl-8">
+                  <p className="text-xs text-white">
+                    ini adalah komentar pertama
+                  </p>
+                </div>
+              </div>
+              <div className="p-2">
+                <div id="user" className="flex items-center gap-2">
+                  <div className="flex size-6 items-center justify-center rounded-full bg-red-600">
+                    <p className="text-xs uppercase text-white">
+                      {getInitialsFromTwoWords("Mahdy Mubasyir")}
+                    </p>
+                  </div>
+                  <p className="text-xs font-medium text-secondary-3">
+                    Mahdy Mubasyir
+                  </p>
+                  <p className="text-[10px] text-neutral-500">09.10</p>
+                </div>
+                <div id="content_message" className="mt-2 pl-8">
+                  <p className="text-xs text-white">
+                    ini adalah komentar pertama
+                  </p>
+                </div>
+              </div>
+              <div className="p-2">
+                <div id="user" className="flex items-center gap-2">
+                  <div className="flex size-6 items-center justify-center rounded-full bg-red-600">
+                    <p className="text-xs uppercase text-white">
+                      {getInitialsFromTwoWords("Mahdy Mubasyir")}
+                    </p>
+                  </div>
+                  <p className="text-xs font-medium text-secondary-3">
+                    Mahdy Mubasyir
+                  </p>
+                  <p className="text-[10px] text-neutral-500">09.10</p>
+                </div>
+                <div id="content_message" className="mt-2 pl-8">
+                  <p className="text-xs text-white">
+                    ini adalah komentar pertama
+                  </p>
+                </div>
+              </div>
+              <div className="p-2">
+                <div id="user" className="flex items-center gap-2">
+                  <div className="flex size-6 items-center justify-center rounded-full bg-red-600">
+                    <p className="text-xs uppercase text-white">
+                      {getInitialsFromTwoWords("Mahdy Mubasyir")}
+                    </p>
+                  </div>
+                  <p className="text-xs font-medium text-secondary-3">
+                    Mahdy Mubasyir
+                  </p>
+                  <p className="text-[10px] text-neutral-500">09.10</p>
+                </div>
+                <div id="content_message" className="mt-2 pl-8">
+                  <p className="text-xs text-white">
+                    ini adalah komentar pertama
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="text"
+                name="content"
+                placeholder="Ketik komentar ..."
+                className="flex-1 rounded-md border border-neutral-500 bg-secondary-1 px-3 py-2 text-sm text-neutral-100 focus:border-primary focus:outline-none"
+              />
+              <button className="ml-2 aspect-square h-full rounded-md bg-primary">
+                <PaperAirplaneIcon className="mx-auto size-5 text-white" />
+              </button>
+            </div>
+          </div>
+        </div> */}
+        <CommentProject projectId={id} />
       </Modal>
     </>
   );
