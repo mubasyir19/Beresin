@@ -33,8 +33,14 @@ export const login = async (credentials: LoginCredentials) => {
 
 export const getAuthToken = (): string | undefined => {
   const tokenCookies = Cookies.get("authToken");
-  const jwtToken = atob(tokenCookies as string);
-  return jwtToken;
+  if (!tokenCookies) return undefined;
+  try {
+    const jwtToken = atob(tokenCookies);
+    return jwtToken;
+  } catch (e) {
+    console.error("Gagal decode Base64:", e);
+    return undefined;
+  }
 };
 
 export const registerAccount = async (request: RegisterPayload) => {
@@ -62,6 +68,9 @@ export const registerAccount = async (request: RegisterPayload) => {
 
 export const getProfile = () => {
   const token = getAuthToken();
+  if (!token) {
+    return null;
+  }
   const payloadToken: JwtPayload = jwtDecode(token as string);
 
   const profile = {
