@@ -1,11 +1,62 @@
 import { getInitialsFromTwoWords } from "@/helpers/initialName";
 import { getTimeInWIB } from "@/helpers/timeWIB";
 import { useComment } from "@/hooks/comment/useComment";
+import { getAuthToken } from "@/services/authService";
+import { CommentPayload } from "@/types/comment";
+import { JwtPayload } from "@/types/user";
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
-import React, { useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
+import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function CommentProject({ projectId }: { projectId: string }) {
-  const { comments, fetchCommentProject } = useComment();
+  const { comments, fetchCommentProject, addProjectComment } = useComment();
+
+  const [dataComment, setDataComment] = useState<CommentPayload>({
+    projectId: "",
+    userId: "",
+    content: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setDataComment((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const token = getAuthToken();
+    const payloadToken: JwtPayload = jwtDecode(token as string);
+
+    try {
+      if (!dataComment.content) {
+        toast.error("isi komentar sebelum submit");
+        return;
+      }
+
+      await addProjectComment(projectId, {
+        ...dataComment,
+        projectId: projectId,
+        userId: payloadToken.id,
+      });
+
+      setDataComment({
+        projectId: "",
+        userId: "",
+        content: "",
+      });
+      await fetchCommentProject(projectId);
+
+      toast.success("berhasil tambah komentar");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
+    }
+  };
 
   useEffect(() => {
     if (projectId) {
@@ -43,17 +94,22 @@ export default function CommentProject({ projectId }: { projectId: string }) {
             <p className="text-xs">Belum ada komentar</p>
           )}
         </div>
-        <div className="flex items-center">
+        <form onSubmit={handleSubmit} className="flex items-center">
           <input
             type="text"
             name="content"
+            value={dataComment.content}
+            onChange={handleChange}
             placeholder="Ketik komentar ..."
             className="flex-1 rounded-md border border-neutral-500 bg-secondary-1 px-3 py-2 text-sm text-neutral-100 focus:border-primary focus:outline-none"
           />
-          <button className="ml-2 aspect-square h-full rounded-md bg-primary">
+          <button
+            type="submit"
+            className="ml-2 aspect-square h-full rounded-md bg-primary"
+          >
             <PaperAirplaneIcon className="mx-auto size-5 text-white" />
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
