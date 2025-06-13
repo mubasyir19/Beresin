@@ -1,10 +1,15 @@
+"use client";
+
 // import { Status, TaskPriority } from "@/types";
-import React from "react";
+import React, { useState } from "react";
 import { getInitialsFromTwoWords } from "../../helpers/initialName";
 import Badge from "../atoms/Badge";
 import StatusBadge from "../atoms/StatusBadge";
 import { formatDate } from "@/helpers/formatDate";
 import { CardTaskProps } from "@/types/task";
+import CommentTask from "./CommentTask";
+import Modal from "./Modal";
+import Link from "next/link";
 
 // interface CardTaskProps {
 //   name: string;
@@ -14,6 +19,8 @@ import { CardTaskProps } from "@/types/task";
 // }
 
 export default function CardTask({
+  id,
+  projectId,
   name,
   description,
   date_start,
@@ -21,6 +28,7 @@ export default function CardTask({
   status,
   priority,
 }: CardTaskProps) {
+  const [openModal, setOpenModal] = useState<boolean>(false);
   return (
     <div className="rounded-lg border border-border bg-secondary-1 px-5 py-4">
       <div className="flex items-center justify-between">
@@ -45,6 +53,37 @@ export default function CardTask({
         </p>
         <p className="text-xs text-white">Deadline : {formatDate(date_end)}</p>
       </div>
+      <div className="mt-4 flex justify-end">
+        <Link
+          href={`#`}
+          onClick={() => setOpenModal(true)}
+          className="text-xs text-primary underline"
+        >
+          details
+        </Link>
+      </div>
+      <Modal
+        isOpen={openModal}
+        onClose={() => setOpenModal(false)}
+        title={name}
+      >
+        <StatusBadge status={status} />
+        <p className="mt-2 line-clamp-4 text-xs text-neutral-500">
+          {description}
+        </p>
+        <div className="mt-4 flex flex-col gap-1">
+          <p className="text-xs text-white">
+            Tanggal Mulai :{" "}
+            <span className="font-medium text-secondary-3">
+              {formatDate(date_start)}
+            </span>
+          </p>
+          <p className="text-xs text-white">
+            Deadline : {formatDate(date_end)}
+          </p>
+        </div>
+        <CommentTask projectId={projectId} taskId={id} />
+      </Modal>
       {/* <p className="mt-2 text-xs text-neutral-100">
         Tasks Done :{" "}
         <span className="text-secondary-3 font-bold">{taskProgress}</span> /{" "}

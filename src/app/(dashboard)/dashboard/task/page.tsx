@@ -36,7 +36,7 @@ export default function TaskPage() {
         <div className="">
           <button
             onClick={() => setModalAddOpen(true)}
-            className="flex items-center gap-x-2 rounded-md bg-primary px-4 py-2 text-sm text-neutral-100"
+            className="flex items-center gap-x-2 rounded-md bg-primary px-4 py-2 text-xs text-neutral-100"
           >
             <PlusIcon className="size-4" />
             <span>Tambah</span>
