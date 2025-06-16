@@ -81,22 +81,23 @@ To run this project locally, follow these steps:
 
 ## Project Structure
 
-├── public/  
+```
+├── public/
 ├── src/
-
-│ ├── app/  
-│ ├── components/  
-│ ├── config/  
-│ ├── helpers/  
-│ ├── hooks/  
-│ ├── services/  
-│ ├── types/  
-│ ├── hooks/  
-│ ├── services/  
-├── .env  
-├── .gitignore  
-├── package.json  
+│ ├── app/
+│ ├── components/
+│ ├── config/
+│ ├── helpers/
+│ ├── hooks/
+│ ├── services/
+│ ├── types/
+│ ├── hooks/
+│ ├── services/
+├── .env
+├── .gitignore
+├── package.json
 ├── README.md
+```
 
 ---
 
