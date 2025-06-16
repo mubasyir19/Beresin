@@ -91,8 +91,6 @@ To run this project locally, follow these steps:
 │ ├── hooks/
 │ ├── services/
 │ ├── types/
-│ ├── hooks/
-│ ├── services/
 ├── .env
 ├── .gitignore
 ├── package.json
