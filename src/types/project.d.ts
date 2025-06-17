@@ -56,8 +56,20 @@ export interface addMemberProjectPayload {
   joined_at: Date;
 }
 
+export enum Status {
+  NOT_STARTED = "NOT_STARTED",
+  IN_PROGRESS = "IN_PROGRESS",
+  ON_HOLD = "ON_HOLD",
+  COMPLETED = "COMPLETED",
+}
+
+export type ProjectStatus =
+  | "NOT_STARTED"
+  | "IN_PROGRESS"
+  | "ON_HOLD"
+  | "COMPLETED";
 export interface updateStatusProjectPayload {
-  status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
+  status: ProjectStatus;
 }
 
 export interface updatePriorityProjectPayload {

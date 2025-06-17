@@ -2,8 +2,8 @@ import { API_BASE_URL } from "@/config/constant";
 import {
   addMemberProjectPayload,
   createProjectPayload,
+  ProjectStatus,
   updatePriorityProjectPayload,
-  updateStatusProjectPayload,
 } from "@/types/project";
 import { getAuthToken } from "./authService";
 import { CommentPayload } from "@/types/comment";
@@ -64,16 +64,16 @@ export const addProjectMember = async (payload: addMemberProjectPayload) => {
   }
 };
 
-export const updateStatus = async (payload: updateStatusProjectPayload) => {
+export const updateStatus = async (id: string, newStatus: ProjectStatus) => {
   try {
     const token = getAuthToken();
-    const response = await fetch(`${API_BASE_URL}/project/status/edit`, {
-      method: "PATCH",
+    const response = await fetch(`${API_BASE_URL}/project/status/${id}/edit`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ newStatus }),
     });
 
     const data = await response.json();

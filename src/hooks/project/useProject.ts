@@ -1,5 +1,9 @@
-import { addProject, getProjects } from "@/services/projectService";
-import { createProjectPayload, Project } from "@/types/project";
+import {
+  addProject,
+  getProjects,
+  updateStatus,
+} from "@/services/projectService";
+import { createProjectPayload, Project, ProjectStatus } from "@/types/project";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -58,6 +62,33 @@ export const useProject = () => {
     [fetchProjects],
   );
 
+  const updateProjectStatus = useCallback(
+    async (id: string, newStatus: ProjectStatus) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await updateStatus(id, newStatus);
+        // await updateStatus(id, payload);
+
+        console.log(`harusnya berubah ke status baru yaitu ${status}`);
+        console.log("hasil update status = ", response);
+        toast.success("Status projek berhasil diubah");
+        await fetchProjects();
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+          toast.error(error.message);
+        } else {
+          setError("An error occurred when update status");
+          toast.error("An error occurred when update status");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [fetchProjects],
+  );
+
   useEffect(() => {
     fetchProjects();
   }, [fetchProjects]);
@@ -68,5 +99,6 @@ export const useProject = () => {
     error,
     fetchProjects,
     createProject,
+    updateProjectStatus,
   };
 };

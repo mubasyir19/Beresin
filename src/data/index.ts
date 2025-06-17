@@ -11,6 +11,13 @@ export const listMenuItems: MenuItem[] = [
   { text: "My Task", href: "/dashboard/task", icon: QueueListIcon },
 ];
 
+export const allowedTransitions: Record<string, string[]> = {
+  NOT_STARTED: ["IN_PROGRESS"],
+  IN_PROGRESS: ["NOT_STARTED", "ON_HOLD"],
+  ON_HOLD: ["IN_PROGRESS", "COMPLETED"],
+  COMPLETED: ["ON_HOLD"],
+};
+
 export const projectMembersExample = [
   {
     id: "1",

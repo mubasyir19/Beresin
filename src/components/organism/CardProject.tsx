@@ -9,6 +9,7 @@ import { CardProjectProps } from "@/types/project";
 import { formatDate } from "@/helpers/formatDate";
 import Modal from "./Modal";
 import CommentProject from "./CommentProject";
+import DropdownStatus from "../molecules/DropdownStatus";
 
 export default function CardProject({
   id,
@@ -25,6 +26,7 @@ export default function CardProject({
   Task,
 }: CardProjectProps) {
   const [openModal, setOpenModal] = useState<boolean>(false);
+
   return (
     <>
       <div className="rounded-lg border border-border bg-secondary-1 px-5 py-4">
@@ -121,14 +123,7 @@ export default function CardProject({
           </ol>
         </div>
         <CommentProject projectId={id} />
-        <div className="my-3">
-          <p className="text-xs text-neutral-500">
-            Jika sudah selesai silakan klik tombol di bawah ini
-          </p>
-          <button className="mt-2 w-full rounded-lg bg-emerald-500 py-2 text-center text-sm font-semibold text-white">
-            Tandai Selesai
-          </button>
-        </div>
+        <DropdownStatus id={id} currentStatus={status} />
       </Modal>
     </>
   );
