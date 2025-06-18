@@ -83,20 +83,9 @@ export default function CardTask({
             Deadline : {formatDate(date_end)}
           </p>
         </div>
-        <CommentTask projectId={projectId} taskId={id} />
         <StatusTask id={id} />
+        <CommentTask projectId={projectId} taskId={id} />
       </Modal>
-      {/* <p className="mt-2 text-xs text-neutral-100">
-        Tasks Done :{" "}
-        <span className="text-secondary-3 font-bold">{taskProgress}</span> /{" "}
-        {totalTasks}
-      </p> */}
-      {/* <div className="mt-4 flex items-center justify-between">
-        <AvatarGroup members={members} maxVisible={3} />
-        <Link href={`#`} className="text-primary text-xs underline">
-          details
-        </Link>
-      </div> */}
     </div>
   );
 }

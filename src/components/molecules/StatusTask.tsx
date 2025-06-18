@@ -18,8 +18,10 @@ export default function StatusTask({ id }: { id: string }) {
     }
   };
   return (
-    <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium text-white">Update Status</label>
+    <div className="mt-3 flex flex-col gap-2">
+      <label className="text-base font-semibold text-white">
+        Update Status
+      </label>
       <select
         className="rounded-md border border-neutral-500 bg-secondary-1 p-2 text-sm text-white"
         onChange={(e) => handleChange(e.target.value as TaskStatus)}

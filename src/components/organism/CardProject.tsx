@@ -103,8 +103,11 @@ export default function CardProject({
         <div className="mt-4">
           <ProgressBar percentage={progress} />
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center justify-between">
           <AvatarGroup members={members} maxVisible={3} />
+          <Link href={`#`} className="text-xs text-primary underline">
+            add member
+          </Link>
         </div>
         <div className="mt-2">
           <h3 className="font-semibold text-neutral-100">Tugas</h3>
@@ -122,8 +125,8 @@ export default function CardProject({
             )}
           </ol>
         </div>
-        <CommentProject projectId={id} />
         <DropdownStatus id={id} currentStatus={status} />
+        <CommentProject projectId={id} />
       </Modal>
     </>
   );
