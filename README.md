@@ -22,11 +22,14 @@ Welcome to the frontend repository for **Beresin**. This web application is buil
 
 ## Features
 
-- **Login**: .
+- **Register**: create new account.
+- **Login**: sign in user.
 - **List Projects**: Show list projects based on priority.
 - **Add Project**: Add new project.
 - **List Tasks**: Show list tasks based on priority.
 - **Add Task**: Add new task.
+- **Add Comment**: comment on the project and task.
+- **Update Status**: change status if completed, proceed to the next status.
 
 ---
 
@@ -91,10 +94,16 @@ To run this project locally, follow these steps:
 │ ├── hooks/
 │ ├── services/
 │ ├── types/
+│ ├── middleware.ts
 ├── .env
 ├── .gitignore
+├── .prettierrc
+├── eslint.config.mjs
+├── package-lock.json
 ├── package.json
 ├── README.md
+├── tailwind.config.ts
+├── tsconfig.json
 ```
 
 ---
