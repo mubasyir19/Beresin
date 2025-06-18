@@ -10,6 +10,7 @@ import { CardTaskProps } from "@/types/task";
 import CommentTask from "./CommentTask";
 import Modal from "./Modal";
 import Link from "next/link";
+import StatusTask from "../molecules/StatusTask";
 
 // interface CardTaskProps {
 //   name: string;
@@ -83,6 +84,7 @@ export default function CardTask({
           </p>
         </div>
         <CommentTask projectId={projectId} taskId={id} />
+        <StatusTask id={id} />
       </Modal>
       {/* <p className="mt-2 text-xs text-neutral-100">
         Tasks Done :{" "}

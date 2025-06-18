@@ -1,5 +1,5 @@
-import { addTask, getTasks } from "@/services/taskService";
-import { addTaskPayload, Task } from "@/types/task";
+import { addTask, getTasks, updateStatus } from "@/services/taskService";
+import { addTaskPayload, Task, TaskStatus } from "@/types/task";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -55,15 +55,36 @@ export const useTask = () => {
     [fetchTask],
   );
 
+  const updateTaskStatus = useCallback(
+    async (id: string, newStatus: TaskStatus) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await updateStatus(id, newStatus);
+        console.log("hasil hooks update status tugas = ", response);
+        toast.success("Status tugas berhasil diubah");
+        await fetchTask();
+      } catch (error) {
+        if (error instanceof Error) {
+          toast.error(error.message);
+        } else {
+          toast.error("an error occured");
+        }
+      }
+    },
+    [fetchTask],
+  );
+
   useEffect(() => {
     fetchTask();
   }, [fetchTask]);
 
   return {
     tasks,
-    fetchTask,
-    createTask,
     isLoading,
     error,
+    fetchTask,
+    createTask,
+    updateTaskStatus,
   };
 };

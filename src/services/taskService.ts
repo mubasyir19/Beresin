@@ -1,8 +1,8 @@
 import { API_BASE_URL } from "@/config/constant";
 import {
   addTaskPayload,
+  TaskStatus,
   updatePriorityTaskPayload,
-  updateStatusTaskPayload,
 } from "@/types/task";
 import { getAuthToken } from "./authService";
 import { CommentPayload } from "@/types/comment";
@@ -44,16 +44,16 @@ export const addTask = async (payload: addTaskPayload) => {
   }
 };
 
-export const updateStatus = async (payload: updateStatusTaskPayload) => {
+export const updateStatus = async (id: string, newStatus: TaskStatus) => {
   try {
     const token = getAuthToken();
-    const response = await fetch(`${API_BASE_URL}/task/status/edit`, {
-      method: "PATCH",
+    const response = await fetch(`${API_BASE_URL}/task/status/${id}/edit`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ newStatus }),
     });
 
     const data = await response.json();

@@ -34,8 +34,13 @@ export interface addTaskPayload {
   created_by: string;
 }
 
+export type TaskStatus =
+  | "NOT_STARTED"
+  | "IN_PROGRESS"
+  | "ON_HOLD"
+  | "COMPLETED";
 export interface updateStatusTaskPayload {
-  status: "NOT_STARTED" | "IN_PROGRESS" | "ON_HOLD" | "COMPLETED";
+  status: TaskStatus;
 }
 
 export interface updatePriorityTaskPayload {
