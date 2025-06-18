@@ -17,7 +17,7 @@ export const useTask = () => {
       if (response.status === 200) {
         setTasks(response.data);
       } else {
-        throw new Error(response.message || "failed fetch project");
+        setError(response.message || "failed fetch project");
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -35,9 +35,8 @@ export const useTask = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await addTask(payload);
+        await addTask(payload);
 
-        console.log("hasil tambah data = ", response);
         toast.success("Proyek berhasil dibuat!");
         await fetchTask();
       } catch (error) {
@@ -60,8 +59,7 @@ export const useTask = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await updateStatus(id, newStatus);
-        console.log("hasil hooks update status tugas = ", response);
+        await updateStatus(id, newStatus);
         toast.success("Status tugas berhasil diubah");
         await fetchTask();
       } catch (error) {

@@ -20,8 +20,12 @@ export const getTasks = async () => {
 
     const data = await response.json();
     return data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw error;
+    return {
+      status: 500,
+      error: "Gagal terhubung ke server",
+    };
   }
 };
 
@@ -39,8 +43,12 @@ export const addTask = async (payload: addTaskPayload) => {
 
     const data = await response.json();
     return data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw error;
+    return {
+      status: 500,
+      error: "Gagal terhubung ke server",
+    };
   }
 };
 
@@ -58,8 +66,12 @@ export const updateStatus = async (id: string, newStatus: TaskStatus) => {
 
     const data = await response.json();
     return data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw error;
+    return {
+      status: 500,
+      error: "Gagal terhubung ke server",
+    };
   }
 };
 
@@ -77,8 +89,12 @@ export const updatePriority = async (payload: updatePriorityTaskPayload) => {
 
     const data = await response.json();
     return data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw error;
+    return {
+      status: 500,
+      error: "Gagal terhubung ke server",
+    };
   }
 };
 
@@ -98,8 +114,12 @@ export const commentTask = async (projectId: string, taskId: string) => {
 
     const data = await response.json();
     return data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw error;
+    return {
+      status: 500,
+      error: "Gagal terhubung ke server",
+    };
   }
 };
 
@@ -124,7 +144,11 @@ export const addCommentTask = async (
 
     const data = await response.json();
     return data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw error;
+    return {
+      status: 500,
+      error: "Gagal terhubung ke server",
+    };
   }
 };

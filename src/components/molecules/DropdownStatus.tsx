@@ -1,8 +1,9 @@
 import { allowedTransitions } from "@/data";
-import { updateStatus } from "@/services/projectService";
+import { useProject } from "@/hooks/project/useProject";
+// import { updateStatus } from "@/services/projectService";
 import { ProjectStatus } from "@/types/project";
 import React from "react";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 
 interface StatusDropdownProps {
   id: string;
@@ -13,27 +14,23 @@ export default function DropdownStatus({
   id,
   currentStatus,
 }: StatusDropdownProps) {
+  const { updateProjectStatus, error } = useProject();
   const options = allowedTransitions[currentStatus] || [];
 
-  const handleChange = async (newStatus: ProjectStatus) => {
-    try {
-      const response = await updateStatus(id, newStatus);
-      console.log("ini hasil response nya =", response);
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-      } else {
-        toast.error("Gagal memperbarui status");
-      }
-    }
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const newStatus = e.target.value as ProjectStatus;
+  //   updateProjectStatus(id, newStatus);
+  // };
 
   return (
     <div className="flex flex-col gap-2">
       <label className="text-sm font-medium text-white">Update Status</label>
       <select
         className="rounded-md border border-neutral-500 bg-secondary-1 p-2 text-sm text-white"
-        onChange={(e) => handleChange(e.target.value as ProjectStatus)}
+        // onChange={handleChange}
+        onChange={(e) =>
+          updateProjectStatus(id, e.target.value as ProjectStatus)
+        }
         defaultValue=""
       >
         <option value="" disabled>
@@ -45,6 +42,7 @@ export default function DropdownStatus({
           </option>
         ))}
       </select>
+      {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
     </div>
   );
 }

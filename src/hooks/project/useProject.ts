@@ -42,9 +42,10 @@ export const useProject = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await addProject(payload);
+        // const response = await addProject(payload);
+        await addProject(payload);
 
-        console.log("hasil tambah data = ", response);
+        // console.log("hasil tambah data = ", response);
         toast.success("Proyek berhasil dibuat!");
         await fetchProjects();
       } catch (error) {
@@ -68,10 +69,12 @@ export const useProject = () => {
       setError(null);
       try {
         const response = await updateStatus(id, newStatus);
-        // await updateStatus(id, payload);
 
-        console.log(`harusnya berubah ke status baru yaitu ${status}`);
-        console.log("hasil update status = ", response);
+        if (response.status >= 400) {
+          setError(response?.error);
+          return;
+        }
+
         toast.success("Status projek berhasil diubah");
         await fetchProjects();
       } catch (error) {

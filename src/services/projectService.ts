@@ -21,8 +21,12 @@ export const getProjects = async () => {
 
     const data = await response.json();
     return data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw error;
+    return {
+      status: 500,
+      error: "Gagal terhubung ke server",
+    };
   }
 };
 
@@ -40,8 +44,12 @@ export const addProject = async (payload: createProjectPayload) => {
 
     const data = await response.json();
     return data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw error;
+    return {
+      status: 500,
+      error: "Gagal terhubung ke server",
+    };
   }
 };
 
@@ -59,8 +67,12 @@ export const addProjectMember = async (payload: addMemberProjectPayload) => {
 
     const data = await response.json();
     return data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw error;
+    return {
+      status: 500,
+      error: "Gagal terhubung ke server",
+    };
   }
 };
 
@@ -77,9 +89,19 @@ export const updateStatus = async (id: string, newStatus: ProjectStatus) => {
     });
 
     const data = await response.json();
-    return data;
+
+    return {
+      status: response.status,
+      data: data.data,
+      message: data.message,
+      error: data.error,
+    };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw error;
+    return {
+      status: 500,
+      error: "Gagal terhubung ke server",
+    };
   }
 };
 
@@ -118,8 +140,12 @@ export const commentProject = async (projectId: string) => {
 
     const data = await response.json();
     return data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw error;
+    return {
+      status: 500,
+      error: "Gagal terhubung ke server",
+    };
   }
 };
 
@@ -143,7 +169,11 @@ export const addCommentProject = async (
 
     const data = await response.json();
     return data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw error;
+    return {
+      status: 500,
+      error: "Gagal terhubung ke server",
+    };
   }
 };
