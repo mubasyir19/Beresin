@@ -1,13 +1,33 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FolderOpenIcon, QueueListIcon } from "@heroicons/react/24/outline";
 import { useProject } from "@/hooks/project/useProject";
 import { useTask } from "@/hooks/task/useTask";
+import { getProfile } from "@/services/authService";
+import { RoleType } from "@/types/user";
 
 export default function MainPageDashboard() {
   const { projects } = useProject();
   const { tasks } = useTask();
+  const [profile, setProfile] = useState<{
+    fullname: string;
+    bio: string;
+    username: string;
+    email: string;
+    role: RoleType;
+  } | null>(null);
+
+  useEffect(() => {
+    const profile = getProfile();
+    setProfile({
+      fullname: profile?.fullname ?? "",
+      bio: profile?.bio ?? "",
+      username: profile?.username ?? "",
+      email: profile?.email ?? "",
+      role: profile?.role ?? "Member",
+    });
+  }, []);
 
   const totalProjects = projects.length;
   const totalTasks = tasks.length;
@@ -30,12 +50,31 @@ export default function MainPageDashboard() {
     (t) => t.status === "COMPLETED",
   ).length;
 
+  // Over Deadline
+  const now = new Date();
+
+  const overdueProjects = projects
+    .filter((p) => p.date_end && new Date(p.date_end) < now)
+    .map((p) => {
+      const dateEnd = new Date(p.date_end as string);
+      const timeDiff = now.getTime() - dateEnd.getTime();
+      const daysOverdue = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+      return {
+        ...p,
+        daysOverdue,
+      };
+    });
+
   return (
     <div>
       <div className="">
         <div className="">
           <h1 className="text-2xl font-semibold text-white">
-            Selamat Datang, Mahdy
+            Selamat Datang,{" "}
+            {profile?.fullname ? (
+              <span className="text-primary">{profile?.fullname}</span>
+            ) : null}
           </h1>
           <p className="text-sm text-neutral-400">
             Diam, males-malesan, Bergerak, beresin kerjaan
@@ -80,7 +119,7 @@ export default function MainPageDashboard() {
           </h2>
         </div>
       </div>
-      <div className="mt-5 grid grid-cols-3">
+      <div className="mt-5 grid grid-cols-3 gap-4">
         <div className="rounded-lg border border-neutral-500 bg-secondary-1 p-4">
           <h3 className="text-xl font-semibold text-neutral-100">
             Ringkasan Tugas
@@ -107,6 +146,31 @@ export default function MainPageDashboard() {
               <p className="text-sm text-emerald-400">Selesai</p>
             </div>
           </div>
+        </div>
+        <div className="rounded-lg border border-neutral-500 bg-secondary-1 p-4">
+          <h3 className="text-xl font-semibold text-red-500">
+            Projek Terlambat
+          </h3>
+          <ol className="list-inside list-decimal">
+            {overdueProjects.length ? (
+              overdueProjects.map((op) => (
+                <li key={op.id} className="mt-1.5 text-sm text-white">
+                  <span>
+                    {op.name.length > 25
+                      ? `${op.name.slice(0, 20)} ...`
+                      : op.name}
+                  </span>
+                  <span className="ml-4 text-xs text-red-500">
+                    lewat {op.daysOverdue} hari
+                  </span>
+                </li>
+              ))
+            ) : (
+              <p className="text-sm font-semibold text-secondary-3">
+                tidak ada projek melebihi deadline
+              </p>
+            )}
+          </ol>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "@/config/constant";
-import { RegisterPayload } from "@/types/user";
+import { RegisterPayload, RoleType } from "@/types/user";
 import Cookies from "js-cookie";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 
@@ -74,11 +74,11 @@ export const getProfile = () => {
   const payloadToken: JwtPayload = jwtDecode(token as string);
 
   const profile = {
-    fullname: payloadToken.fullname,
-    bio: payloadToken.bio,
-    username: payloadToken.username,
-    email: payloadToken.email,
-    role: payloadToken.role,
+    fullname: payloadToken.fullname ?? "",
+    bio: payloadToken.bio ?? "",
+    username: payloadToken.username ?? "",
+    email: payloadToken.email ?? "",
+    role: payloadToken.role as unknown as RoleType,
   };
 
   return profile;
